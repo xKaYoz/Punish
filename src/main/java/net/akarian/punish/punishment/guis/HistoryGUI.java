@@ -60,7 +60,7 @@ public class HistoryGUI implements PunishmentGUI {
             }
         } else if (item.getType() == Material.NETHER_STAR) {
             String main = ChatColor.stripColor(p.getOpenInventory().getTopInventory().getName().split(" ")[0].split("'")[0]);
-            p.openInventory(new HistoryGUIStart(Bukkit.getOfflinePlayer(main)).getInventory());
+            p.openInventory(new HistoryMenuGUI(Bukkit.getOfflinePlayer(main)).getInventory());
         } else if (item.getType() == Material.PAPER) {
             String main = ChatColor.stripColor(p.getOpenInventory().getTopInventory().getName().split(" ")[0].split("'")[0]);
             //Left click change category Right Click change order

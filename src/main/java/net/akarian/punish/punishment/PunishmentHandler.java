@@ -622,8 +622,6 @@ public class PunishmentHandler {
 
     public static boolean removePunishment(String id) {
 
-        long start = System.currentTimeMillis();
-
         try {
             PreparedStatement ban = sql.getConnection().prepareStatement("DELETE FROM " + sql.getBanTable() + " WHERE ID=?");
             PreparedStatement mute = sql.getConnection().prepareStatement("DELETE FROM " + sql.getMuteTable() + " WHERE ID=?");
@@ -884,7 +882,6 @@ public class PunishmentHandler {
 
         Files files = new Files();
         FileConfiguration lang = files.getConfig("lang");
-        FileConfiguration config = Punish.getInstance().getConfig();
         String id = generateID();
 
         if(!isBlacklisted(ip)) {

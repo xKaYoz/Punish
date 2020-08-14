@@ -76,8 +76,8 @@ public final class Punish extends JavaPlugin {
         pm.registerEvents(new BanCheckEvent(), this);
         pm.registerEvents(new MuteCheckEvent(), this);
         pm.registerEvents(new PunishGUIEvent(), this);
-        pm.registerEvents(new HistoryGUIStartEvents(), this);
-        pm.registerEvents(new HistoryGuiEvents(), this);
+        pm.registerEvents(new HistoryMenuGUIEvent(), this);
+        pm.registerEvents(new HistoryGUIEvent(), this);
         pm.registerEvents(new StaffHistoryMenuEvent(), this);
         pm.registerEvents(new StaffHistoryGUIEvent(), this);
         pm.registerEvents(new IPLogEvent(), this);

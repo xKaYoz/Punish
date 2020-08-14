@@ -1,7 +1,7 @@
 package net.akarian.punish.commands;
 
 import net.akarian.punish.punishment.PunishmentHandler;
-import net.akarian.punish.punishment.guis.HistoryGUIStart;
+import net.akarian.punish.punishment.guis.HistoryMenuGUI;
 import net.akarian.punish.utils.Chat;
 import net.akarian.punish.utils.Punishment;
 import net.akarian.punish.utils.PunishmentType;
@@ -77,9 +77,9 @@ public class HistoryCommand implements CommandExecutor {
                         uuid = Bukkit.getOfflinePlayer(args[0]).getUniqueId().toString();
                     }
 
-                    if(PunishmentHandler.getPunishments(uuid).size() == 0) {
+                    if (PunishmentHandler.getPunishments(uuid).size() == 0) {
                         Chat.sendMessage(sender, "&cThere is no Punishment History for that player.");
-                    } else p.openInventory(new HistoryGUIStart(Bukkit.getOfflinePlayer(args[0])).getInventory());
+                    } else p.openInventory(new HistoryMenuGUI(Bukkit.getOfflinePlayer(args[0])).getInventory());
 
                 } else if (args.length == 2 && args[1].equalsIgnoreCase("purge")) {
 

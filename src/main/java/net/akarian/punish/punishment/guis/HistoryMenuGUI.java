@@ -16,20 +16,20 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.Arrays;
 
-public class HistoryGUIStart implements PunishmentGUI {
+public class HistoryMenuGUI implements PunishmentGUI {
 
     OfflinePlayer op;
     String uuid;
     String name;
 
 
-    public HistoryGUIStart(OfflinePlayer op){
+    public HistoryMenuGUI(OfflinePlayer op) {
         this.op = op;
         this.uuid = op.getUniqueId().toString();
         this.name = op.getName();
     }
 
-    public HistoryGUIStart(){
+    public HistoryMenuGUI() {
 
     }
 

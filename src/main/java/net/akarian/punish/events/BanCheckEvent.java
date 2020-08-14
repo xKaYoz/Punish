@@ -22,7 +22,7 @@ import java.util.UUID;
 public class BanCheckEvent implements Listener {
 
     @EventHandler
-    public void onPrejoin(AsyncPlayerPreLoginEvent e) {
+    public void onPreJoin(AsyncPlayerPreLoginEvent e) {
         Files files = new Files();
         FileConfiguration lang = files.getConfig("lang");
         String uuid = e.getUniqueId().toString();
@@ -30,7 +30,7 @@ public class BanCheckEvent implements Listener {
         Punishment ban = PunishmentHandler.getBan(uuid);
         Punishment blacklist = PunishmentHandler.getBlacklist(e.getAddress().toString().replace("/", ""));
 
-        if(blacklist != null) {
+        if (blacklist != null) {
             String staffName;
             if (blacklist.getStaff().equalsIgnoreCase("Console")) {
                 staffName = "CONSOLE";

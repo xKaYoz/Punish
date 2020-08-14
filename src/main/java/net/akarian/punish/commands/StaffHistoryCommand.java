@@ -1,7 +1,6 @@
 package net.akarian.punish.commands;
 
 import net.akarian.punish.punishment.PunishmentHandler;
-import net.akarian.punish.punishment.guis.HistoryGUIStart;
 import net.akarian.punish.punishment.guis.StaffHistoryMenuGUI;
 import net.akarian.punish.utils.Chat;
 import net.akarian.punish.utils.Punishment;
