@@ -1,0 +1,38 @@
+name: Punish
+version: ${project.version}
+main: net.akarian.punish.Punish
+api-version: 1.13
+prefix: Akarian
+authors: [Austin]
+description: Akarian Punish Plugin
+website: akarian.net
+commands:
+  tempban:
+    description: Tempban a player.
+  ban:
+    description: Ban a player.
+  unban:
+    description: Unban a player.
+  punish:
+    description: Opens the PunishmentGUI.
+    aliases: [p]
+  tempmute:
+    description: Tempmute a player.
+  mute:
+    description: Mute a player.
+  unmute:
+    description: Unmute a player.
+  kick:
+    description: Kick a player.
+  history:
+    description: See the punishment history of a player.
+  dupeip:
+    description: Check the IPs of a player or accounts associated with an IP.
+  warn:
+    description: Warn a player.
+  chat:
+    description: All chat commands.
+  staffhistory:
+  staffrollback:
+  blacklist:
+  unblacklist:

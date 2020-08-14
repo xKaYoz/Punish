@@ -1,0 +1,89 @@
+#GUI Configuration Section
+#Here is a template on how to make a new section!
+#Give this the same name as the book name! If not, it will not work!
+X-Ray:
+  #Give this the same name as the name above, but you can add color codes.
+  BookName: "&e&lX-Ray"
+  #This is for the teir 1 glass pane.
+  Tier 1:
+    #Display name of the glass pane.
+    DisplayName: "&a5 Day Ban"
+    #Lore of the glass pane.
+    Lore:
+      - "&7This is the tier 1 ban."
+    #Commands to be ran by the player.
+    PlayerCommands:
+      - "tempban %player% 5d X-Ray -s"
+    #Commands to be ran by the Console.
+    ConsoleCommands:
+      - "Say This is a test Console Command."
+  Tier 2:
+    #Display name of the glass pane.
+    DisplayName: "&a10 Day Ban"
+    #Lore of the glass pane.
+    Lore:
+      - "&7This is the tier 2 ban."
+    #Commands to be ran by the player.
+    PlayerCommands:
+      - "tempban %player% 10d X-Ray -s"
+    #Commands to be ran by the Console.
+    ConsoleCommands:
+      - "None"
+  Tier 3:
+    #Display name of the glass pane.
+    DisplayName: "&a15 Day Ban"
+    #Lore of the glass pane.
+    Lore:
+      - "&7This is the tier 3 ban."
+    #Commands to be ran by the player.
+    PlayerCommands:
+      - "tempban %player% 15d X-Ray -s"
+    #Commands to be ran by the Console.
+    ConsoleCommands:
+      - "None"
+  Tier 4:
+    #Display name of the glass pane.
+    DisplayName: "&a30 Day Ban"
+    #Lore of the glass pane.
+    Lore:
+      - "&7This is the tier 4 ban."
+    #Commands to be ran by the player.
+    PlayerCommands:
+      - "tempban %player% 30d X-Ray -s"
+    #Commands to be ran by the Console.
+    ConsoleCommands:
+      - "None"
+Client:
+  BookName: "&e&lHacked Client"
+  Tier 1:
+    DisplayName: "&a30 Day Ban"
+    Lore:
+      - "&7This is the tier 1 ban."
+    PlayerCommands:
+      - "tempban %player% 30d Hacked Client -s"
+    ConsoleCommands:
+      - "say This is a test Console Command."
+  Tier 2:
+    DisplayName: "&a90 Day Ban"
+    Lore:
+      - "&7This is the tier 2 ban."
+    PlayerCommands:
+      - "tempban %player% 90d Hacked Client -s"
+    ConsoleCommands:
+      - "None"
+  Tier 3:
+    DisplayName: "&a365 Day Ban"
+    Lore:
+      - "&7This is the tier 3 ban."
+    PlayerCommands:
+      - "tempban %player% 365d Hacked Client -s"
+    ConsoleCommands:
+      - "None"
+  Tier 4:
+    DisplayName: "&aPermanent Ban"
+    Lore:
+      - "&7This is the tier 4 ban."
+    PlayerCommands:
+      - "ban %player% Hacked Client -s"
+    ConsoleCommands:
+      - "None"

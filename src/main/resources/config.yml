@@ -1,0 +1,27 @@
+#Default ban reason
+DefaultBanReason: Breaking The Rules
+#Default mute reason
+DefaultMuteReason: Spamming
+#Default Kick Reason
+DefaultKickReason: Breaking The Rules
+#Default Warn Reason
+DefaultWarnReason: Breaking The Rules
+#Default Blacklist Reason
+DefaultBlacklistReason: Breaking The Rules
+#Amount of days before a warn expires.
+WarnExpire: 30
+#Automatically ban anyone trying to join from a blacklisted IP
+BlacklistBan: true
+MYSQL:
+  host: localhost
+  port: 3306
+  database: database
+  username: test
+  password: password
+  banTable: bans
+  muteTable: mutes
+  warnTable: warns
+  kickTable: kicks
+  ipTable: ips
+  blacklistTable: blacklists
+

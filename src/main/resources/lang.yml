@@ -1,0 +1,110 @@
+Prefix: "&c&lServer"
+#Announced in Chat
+Ban Message: "&8&m&l-----------------------------------------------------
+\n&c&lServer
+\n&c$player$ &fhas been banned by &c$staff$ &ffor &c'$reason$'&f.
+\n&8&m&l-----------------------------------------------------"
+Silent Ban Message: "&8&m&l-----------------------------------------------------
+\n&c&lServer &7&o[Silent]
+\n&c$player$ &fhas been banned by &c$staff$ &ffor &c'$reason$'&f.
+\n&8&m&l-----------------------------------------------------"
+TempBan Message: "&8&m&l-----------------------------------------------------
+\n&c&lServer
+\n&c$player$ &fhas been temporarily banned by &c$staff$ &ffor &c'$reason$'&f.
+\n&8&m&l-----------------------------------------------------"
+Silent TempBan Message: "&8&m&l-----------------------------------------------------
+\n&c&lServer &7&o[Silent]
+\n&c$player$ &fhas been temporarily banned by &c$staff$ &ffor &c'$reason$'&f.
+\n&8&m&l-----------------------------------------------------"
+Mute Message: "&8&m&l-----------------------------------------------------
+\n&c&lServer
+\n&c$player$ &fhas been muted by &c$staff$ &ffor &c'$reason$'&f.
+\n&8&m&l-----------------------------------------------------"
+Silent Mute Message: "&8&m&l-----------------------------------------------------
+\n&c&lServer &7&o[Silent]
+\n&c$player$ &fhas been muted by &c$staff$ &ffor &c'$reason$'&f.
+\n&8&m&l-----------------------------------------------------"
+TempMute Message: "&8&m&l-----------------------------------------------------
+\n&c&lServer
+\n&c$player$ &fhas been temporarily muted by &c$staff$ &ffor &c'$reason$'&f.
+\n&8&m&l-----------------------------------------------------"
+Silent TempMute Message: "&8&m&l-----------------------------------------------------
+\n&c&lServer &7&o[Silent]
+\n&c$player$ &fhas been temporarily muted by &c$staff$ &ffor &c'$reason$'&f.
+\n&8&m&l-----------------------------------------------------"
+Kick Message: "&8&m&l-----------------------------------------------------
+\n&c&lServer
+\n&c$player$ &fhas been kicked by &c$staff$ &ffor &c'$reason$'&f.
+\n&8&m&l-----------------------------------------------------"
+Silent Kick Message: "&8&m&l-----------------------------------------------------
+\n&c&lServer &7&o[Silent]
+\n&c$player$ &fhas been kicked by &c$staff$ &ffor &c'$reason$'&f.
+\n&8&m&l-----------------------------------------------------"
+Unban Message: "&8&m&l-----------------------------------------------------
+\n&c&lServer
+\n&c$player$ &fhas been unbanned by &c$staff$&f.
+\n&8&m&l-----------------------------------------------------"
+Silent Unban Message: "&8&m&l-----------------------------------------------------
+\n&c&lServer &7&o[Silent]
+\n&c$player$ &fhas been unbanned by &c$staff$&f.
+\n&8&m&l-----------------------------------------------------"
+Unmute Message: "&8&m&l-----------------------------------------------------
+\n&c&lServer
+\n&c$player$ &fhas been unmuted by &c$staff$&f.
+\n&8&m&l-----------------------------------------------------"
+Silent Unmute Message: "&8&m&l-----------------------------------------------------
+\n&c&lServer &7&o[Silent]
+\n&c$player$ &fhas been unmuted by &c$staff$f.
+\n&8&m&l-----------------------------------------------------"
+Warn Message: "&8&m&l-----------------------------------------------------
+\n&c&lServer
+\n&c$player$ &fhas been warned by &c$staff$ &ffor &c'$reason$'&f.
+\n&8&m&l-----------------------------------------------------"
+Silent Warn Message: "&8&m&l-----------------------------------------------------
+\n&c&lServer &7&o[Silent]
+\n&c$player$ &fhas been warned by &c$staff$ &ffor &c'$reason$'&f.
+\n&8&m&l-----------------------------------------------------"
+Blacklist Message: "&8&m&l-----------------------------------------------------
+\n&c&lServer
+\n&c$ip$ &fhas been &4blacklisted&f by &c$staff$ &ffor &c'$reason$'&f.
+\n&8&m&l-----------------------------------------------------"
+Silent Blacklist Message: "&8&m&l-----------------------------------------------------
+\n&c&lServer &7&o[Silent]
+\n&c$ip$ &fhas been &4blacklisted&f by &c$staff$ &ffor &c'$reason$'&f.
+\n&8&m&l-----------------------------------------------------"
+UnBlacklist Message: "&8&m&l-----------------------------------------------------
+\n&c&lServer
+\n&c$ip$ &fhas been unblacklisted&f by &c$staff$&f.
+\n&8&m&l-----------------------------------------------------"
+Silent UnBlacklist Message: "&8&m&l-----------------------------------------------------
+\n&c&lServer &7&o[Silent]
+\n&c$ip$ &fhas been unblacklisted&f by &c$staff$&f.
+\n&8&m&l-----------------------------------------------------"
+
+#Ban messages when the player joins.
+Disconnect Ban Message: "&cYou have been banned permanently from the server!
+ \n
+ \n&cReason &8- &f$reason$
+ \n&cYou can appeal at &fwww.example.com/appeal
+ \n
+ \n&cID &8-&f $id$"
+Disconnect Blacklist Message: "&cYou have been &4Blacklisted&c from the server by $staff$!
+ \n
+ \n&cReason &8- &f$reason$
+ \n&cYou can appeal at &fwww.example.com/appeal
+ \n
+ \n&cID &8-&f $id$"
+Disconnect TempBan Message: "&cYou are temporarily banned for &f$length$&c from the server!
+ \n
+ \n&cReason &8- &f$reason$
+ \n&cYou can appeal at &fwww.example.com/appeal
+ \n
+ \n&cID &8-&f $id$"
+Player Kick Message: "&cYou have been kicked from the server.
+ \n
+ \n&cReason &8-&f $reason$
+ \n&cID &8-&f $id$"
+Mute Chat Message: "&8&m&l-----------------------------------------------------
+  \n&c&lServer &7$id$
+  \n&cYou are muted for $reason$ until $length$.
+  \n&8&m&l-----------------------------------------------------"
