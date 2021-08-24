@@ -251,9 +251,9 @@ public class PunishmentHandler {
                     continue;
                 }
                 if (r.getLong(5) != -1) {
-                    return new Punishment(PunishmentType.TEMPBAN, r.getString(1), UUID.fromString(uuid), r.getString(3), r.getLong(4), r.getLong(5), r.getString(6), r.getBoolean(7));
+                    return new Punishment(PunishmentType.TEMPBAN, r.getString(1), r.getString(2), r.getString(3), r.getLong(4), r.getLong(5), r.getString(6), r.getBoolean(7));
                 }
-                return new Punishment(PunishmentType.BAN, r.getString(1), UUID.fromString(uuid), r.getString(3), r.getLong(4), r.getLong(5), r.getString(6), r.getBoolean(7));
+                return new Punishment(PunishmentType.BAN, r.getString(1), r.getString(2), r.getString(3), r.getLong(4), r.getLong(5), r.getString(6), r.getBoolean(7));
             }
             return null;
 
@@ -440,7 +440,7 @@ public class PunishmentHandler {
                     unmute(uuid);
                     continue;
                 }
-                return new Punishment(PunishmentType.MUTE, r.getString(1), UUID.fromString(uuid), r.getString(3), r.getLong(4), r.getLong(5), r.getString(6), r.getBoolean(7));
+                return new Punishment(PunishmentType.MUTE, r.getString(1), r.getString(2), r.getString(3), r.getLong(4), r.getLong(5), r.getString(6), r.getBoolean(7));
             }
             return null;
 
@@ -661,8 +661,8 @@ public class PunishmentHandler {
 
             if (bs.next()) {
                 if (bs.getLong(5) == -1)
-                    return new Punishment(PunishmentType.BAN, bs.getString(1), UUID.fromString(bs.getString(2)), bs.getString(3), bs.getLong(4), bs.getLong(5), bs.getString(6), bs.getBoolean(7));
-                return new Punishment(PunishmentType.TEMPBAN, bs.getString(1), UUID.fromString(bs.getString(2)), bs.getString(3), bs.getLong(4), bs.getLong(5), bs.getString(6), bs.getBoolean(7));
+                    return new Punishment(PunishmentType.BAN, bs.getString(1), bs.getString(2), bs.getString(3), bs.getLong(4), bs.getLong(5), bs.getString(6), bs.getBoolean(7));
+                return new Punishment(PunishmentType.TEMPBAN, bs.getString(1), bs.getString(2), bs.getString(3), bs.getLong(4), bs.getLong(5), bs.getString(6), bs.getBoolean(7));
             }
 
             PreparedStatement mute = sql.getConnection().prepareStatement("SELECT * FROM " + sql.getMuteTable() + " WHERE ID=?");
@@ -672,7 +672,7 @@ public class PunishmentHandler {
             ResultSet ms = mute.executeQuery();
 
             if (ms.next()) {
-                return new Punishment(PunishmentType.MUTE, ms.getString(1), UUID.fromString(ms.getString(2)), ms.getString(3), ms.getLong(4), ms.getLong(5), ms.getString(6), ms.getBoolean(7));
+                return new Punishment(PunishmentType.MUTE, ms.getString(1), ms.getString(2), ms.getString(3), ms.getLong(4), ms.getLong(5), ms.getString(6), ms.getBoolean(7));
             }
 
             PreparedStatement warn = sql.getConnection().prepareStatement("SELECT * FROM " + sql.getWarnTable() + " WHERE ID=?");
@@ -682,7 +682,7 @@ public class PunishmentHandler {
             ResultSet ws = warn.executeQuery();
 
             if (ws.next()) {
-                return new Punishment(PunishmentType.WARN, ws.getString(1), UUID.fromString(ws.getString(2)), ws.getString(3), ws.getLong(4), ws.getLong(5), ws.getString(6), ws.getBoolean(7));
+                return new Punishment(PunishmentType.WARN, ws.getString(1), ws.getString(2), ws.getString(3), ws.getLong(4), ws.getLong(5), ws.getString(6), ws.getBoolean(7));
             }
 
             PreparedStatement kick = sql.getConnection().prepareStatement("SELECT * FROM " + sql.getKickTable() + " WHERE ID=?");
@@ -692,7 +692,7 @@ public class PunishmentHandler {
             ResultSet ks = kick.executeQuery();
 
             if (ks.next()) {
-                return new Punishment(PunishmentType.KICK, ks.getString(1), UUID.fromString(ks.getString(2)), ks.getString(3), ks.getLong(4), 1, ks.getString(5), false);
+                return new Punishment(PunishmentType.KICK, ks.getString(1), ks.getString(2), ks.getString(3), ks.getLong(4), 1, ks.getString(5), false);
             }
 
             PreparedStatement blacklist = sql.getConnection().prepareStatement("SELECT * FROM " + sql.getBlTable() + " WHERE ID=?");
@@ -724,7 +724,10 @@ public class PunishmentHandler {
             ResultSet bs = ban.executeQuery();
 
             while (bs.next()) {
-                punishments.add(new Punishment(PunishmentType.TEMPBAN, bs.getString(1), UUID.fromString(uuid), bs.getString(3), bs.getLong(4), bs.getLong(5), bs.getString(6), bs.getBoolean(7)));
+                if (bs.getLong(5) == -1)
+                    punishments.add(new Punishment(PunishmentType.BAN, bs.getString(1), bs.getString(2), bs.getString(3), bs.getLong(4), bs.getLong(5), bs.getString(6), bs.getBoolean(7)));
+                else
+                    punishments.add(new Punishment(PunishmentType.TEMPBAN, bs.getString(1), bs.getString(2), bs.getString(3), bs.getLong(4), bs.getLong(5), bs.getString(6), bs.getBoolean(7)));
             }
 
             PreparedStatement mute = sql.getConnection().prepareStatement("SELECT * FROM " + sql.getMuteTable() + " WHERE UUID=?");
@@ -734,7 +737,7 @@ public class PunishmentHandler {
             ResultSet ms = mute.executeQuery();
 
             while (ms.next()) {
-                punishments.add(new Punishment(PunishmentType.MUTE, ms.getString(1), UUID.fromString(uuid), ms.getString(3), ms.getLong(4), ms.getLong(5), ms.getString(6), ms.getBoolean(7)));
+                punishments.add(new Punishment(PunishmentType.MUTE, ms.getString(1), ms.getString(2), ms.getString(3), ms.getLong(4), ms.getLong(5), ms.getString(6), ms.getBoolean(7)));
             }
             PreparedStatement warn = sql.getConnection().prepareStatement("SELECT * FROM " + sql.getWarnTable() + " WHERE UUID=?");
 
@@ -743,7 +746,7 @@ public class PunishmentHandler {
             ResultSet ws = warn.executeQuery();
 
             while (ws.next()) {
-                punishments.add(new Punishment(PunishmentType.WARN, ws.getString(1), UUID.fromString(uuid), ws.getString(3), ws.getLong(4), ws.getLong(5), ws.getString(6), ws.getBoolean(7)));
+                punishments.add(new Punishment(PunishmentType.WARN, ws.getString(1), ws.getString(2), ws.getString(3), ws.getLong(4), ws.getLong(5), ws.getString(6), ws.getBoolean(7)));
             }
 
             PreparedStatement kick = sql.getConnection().prepareStatement("SELECT * FROM " + sql.getKickTable() + " WHERE UUID=?");
@@ -753,7 +756,7 @@ public class PunishmentHandler {
             ResultSet ks = kick.executeQuery();
 
             while (ks.next()) {
-                punishments.add(new Punishment(PunishmentType.KICK, ks.getString(1), UUID.fromString(uuid), ks.getString(3), ks.getLong(4), 1, ks.getString(5), false));
+                punishments.add(new Punishment(PunishmentType.KICK, ks.getString(1), ks.getString(2), ks.getString(3), ks.getLong(4), 1, ks.getString(5), false));
             }
 
         } catch (SQLException e) {
@@ -775,7 +778,7 @@ public class PunishmentHandler {
             ResultSet bs = ban.executeQuery();
 
             while (bs.next()) {
-                punishments.add(new Punishment(PunishmentType.TEMPBAN, bs.getString(1), UUID.fromString(uuid), bs.getString(3), bs.getLong(4), bs.getLong(5), bs.getString(6), bs.getBoolean(7)));
+                punishments.add(getPunishment(bs.getString(1)));
             }
 
             PreparedStatement mute = sql.getConnection().prepareStatement("SELECT * FROM " + sql.getMuteTable() + " WHERE STAFF=?");
@@ -785,7 +788,7 @@ public class PunishmentHandler {
             ResultSet ms = mute.executeQuery();
 
             while (ms.next()) {
-                punishments.add(new Punishment(PunishmentType.MUTE, ms.getString(1), UUID.fromString(uuid), ms.getString(3), ms.getLong(4), ms.getLong(5), ms.getString(6), ms.getBoolean(7)));
+                punishments.add(new Punishment(PunishmentType.MUTE, ms.getString(1), ms.getString(2), ms.getString(3), ms.getLong(4), ms.getLong(5), ms.getString(6), ms.getBoolean(7)));
             }
             PreparedStatement warn = sql.getConnection().prepareStatement("SELECT * FROM " + sql.getWarnTable() + " WHERE STAFF=?");
 
@@ -794,7 +797,7 @@ public class PunishmentHandler {
             ResultSet ws = warn.executeQuery();
 
             while (ws.next()) {
-                punishments.add(new Punishment(PunishmentType.WARN, ws.getString(1), UUID.fromString(uuid), ws.getString(3), ws.getLong(4), ws.getLong(5), ws.getString(6), ws.getBoolean(7)));
+                punishments.add(new Punishment(PunishmentType.WARN, ws.getString(1), ws.getString(2), ws.getString(3), ws.getLong(4), ws.getLong(5), ws.getString(6), ws.getBoolean(7)));
             }
 
             PreparedStatement kick = sql.getConnection().prepareStatement("SELECT * FROM " + sql.getKickTable() + " WHERE STAFF=?");
@@ -804,7 +807,7 @@ public class PunishmentHandler {
             ResultSet ks = kick.executeQuery();
 
             while (ks.next()) {
-                punishments.add(new Punishment(PunishmentType.KICK, ks.getString(1), UUID.fromString(uuid), ks.getString(3), ks.getLong(4), 1, ks.getString(5), false));
+                punishments.add(new Punishment(PunishmentType.KICK, ks.getString(1), ks.getString(2), ks.getString(3), ks.getLong(4), 1, ks.getString(5), false));
             }
 
         } catch (SQLException e) {

@@ -61,7 +61,7 @@ public class StaffHistoryGUIHandler {
                 duration = Chat.formatTime((l) / 1000);
             }
 
-            String userName = Bukkit.getOfflinePlayer(p.getPunished()).getName();
+            String userName = NameManager.getName(p.getPunished());
 
             Date now = new Date(p.getStart());
             SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
@@ -69,7 +69,7 @@ public class StaffHistoryGUIHandler {
             if(type == p.getType() || (type == PunishmentType.BAN && p.getType() == PunishmentType.TEMPBAN)) {
 
                 ItemStack item = ItemBuilder.build(Material.BOOK, 1, "&6" + p.getId(), Arrays.asList(
-                        "&cPunished User &8- &f" + userName,
+                        "&cPunished User &8- &f" + userName + " (" + p.getPunished() + ")",
                         "&cReason &8- &f" + p.getReason(),
                         "&cDate Punished &8- &f" + format.format(now),
                         "&cDuration &8- &f" + duration,

@@ -49,12 +49,16 @@ public class StaffHistoryGUI implements PunishmentGUI {
 
             if (click == ClickType.SHIFT_RIGHT) {
 
-                for (int i = 0; i <= 44; i++) {
-                    p.getOpenInventory().setItem(i, ItemBuilder.build(Material.BARRIER, 1, "&cRefreshing...", Collections.emptyList()));
-                }
+                if (p.hasPermission("punish.staffhistory.purge")) {
 
-                PunishmentHandler.removePunishment(id);
-                p.openInventory(new StaffHistoryGUI(op.getUniqueId(), pType, 1, 1).getInventory());
+                    for (int i = 0; i <= 44; i++) {
+                        p.getOpenInventory().setItem(i, ItemBuilder.build(Material.BARRIER, 1, "&cRefreshing...", Collections.emptyList()));
+                    }
+
+                    PunishmentHandler.removePunishment(id);
+                    p.openInventory(new StaffHistoryGUI(op.getUniqueId(), pType, 1, 1).getInventory());
+
+                }
 
             } else if (click == ClickType.LEFT) {
 

@@ -3,6 +3,7 @@ package net.akarian.punish.commands;
 import net.akarian.punish.punishment.PunishmentHandler;
 import net.akarian.punish.punishment.guis.HistoryMenuGUI;
 import net.akarian.punish.utils.Chat;
+import net.akarian.punish.utils.NameManager;
 import net.akarian.punish.utils.Punishment;
 import net.akarian.punish.utils.PunishmentType;
 import org.bukkit.Bukkit;
@@ -63,7 +64,7 @@ public class HistoryCommand implements CommandExecutor {
                             Chat.sendRawMessage(p, "&cPunished IP&8 - &f" + punishment.getIp());
                             Chat.sendRawMessage(p, "&c# Accounts Associated&8 - &f" + PunishmentHandler.getPlayersFromIP(punishment.getIp()).size());
                         } else
-                            Chat.sendRawMessage(p, "&cPunished Player&8 - &f" + Bukkit.getOfflinePlayer(punishment.getPunished()).getName() + " (" + punishment.getPunished() + ")");
+                            Chat.sendRawMessage(p, "&cPunished Player&8 - &f" + NameManager.getName(punishment.getPunished()) + " (" + punishment.getPunished() + ")");
                         Chat.sendRawMessage(p, "&cPunishment Type&8 - &f" + punishment.getType().getString());
                         Chat.sendRawMessage(p, "&cStaff&8 - &f" + staffName + (!punishment.getStaff().equalsIgnoreCase("console") ? " (" + punishment.getStaff() + ")" : ""));
                         Chat.sendRawMessage(p, "&cReason&8 - &f" + punishment.getReason());

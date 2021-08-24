@@ -9,6 +9,7 @@ import net.akarian.punish.events.IPLogEvent;
 import net.akarian.punish.events.MuteCheckEvent;
 import net.akarian.punish.punishment.guis.handlers.PunishGUIHandler;
 import net.akarian.punish.utils.MySQL;
+import net.akarian.punish.utils.NameManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -45,6 +46,7 @@ public final class Punish extends JavaPlugin {
             registerListeners();
 
             PunishGUIHandler.loadPunishments();
+            new NameManager().startCacheTimer();
         }
     }
 
@@ -97,4 +99,5 @@ public final class Punish extends JavaPlugin {
     public void saveLang() {
         saveResource("lang.yml", false);
     }
+
 }

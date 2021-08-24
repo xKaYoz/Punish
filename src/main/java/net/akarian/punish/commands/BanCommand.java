@@ -41,15 +41,14 @@ public class BanCommand implements CommandExecutor {
                 }
 
                 /* Banning the player and searching the responding code to the ban. */
-                final String trim = reason.toString().replace("-s", "").trim();
-                switch (PunishmentHandler.ban(uuid, staff, trim, isSilent)) {
+                switch (PunishmentHandler.ban(uuid, staff, reason.toString().replace("-s", "").trim(), isSilent)) {
                     case 0:
                         if (!isSilent) {
-                            Chat.broadcast(lang.getString("Ban Message").replace("$player$", name).replace("$reason$", trim).replace("$staff$", sender.getName()));
+                            Chat.broadcast(lang.getString("Ban Message").replace("$player$", name).replace("$reason$", reason.toString().replace("-s", "").trim()).replace("$staff$", sender.getName()));
                         } else {
                             for (Player p : Bukkit.getOnlinePlayers()) {
                                 if (p.hasPermission("punish.silent")) {
-                                    Chat.sendRawMessage(p, lang.getString("Silent Ban Message").replace("$player$", name).replace("$reason$", trim).replace("$staff$", sender.getName()));
+                                    Chat.sendRawMessage(p, lang.getString("Silent Ban Message").replace("$player$", name).replace("$reason$", reason.toString().replace("-s", "").trim()).replace("$staff$", sender.getName()));
                                 }
                             }
                         }
