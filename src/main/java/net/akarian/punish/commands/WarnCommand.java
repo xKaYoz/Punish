@@ -17,7 +17,7 @@ public class WarnCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (sender.hasPermission("punish.unmute")) {
+        if (sender.hasPermission("punish.warn")) {
             if (args.length >= 1) {
 
                 /* Creating our variables. */
@@ -41,7 +41,7 @@ public class WarnCommand implements CommandExecutor {
 
                 /* Warning the player and searching the responding code to the warn. */
                 String trim = reason.toString().replace("-s", "").trim();
-                switch (PunishmentHandler.warn(uuid, staff, 60 * 60 * 24 * 90, trim)) {
+                switch (PunishmentHandler.warn(uuid, staff, 60 * 60 * 24 * 90, trim, isSilent)) {
                     case 0:
                         if (Bukkit.getPlayer(UUID.fromString(uuid)) != null) {
                             Chat.sendRawMessage(Bukkit.getPlayer(UUID.fromString(uuid)), "&cYou have been warned for " + trim + ". It will expire in 90 days.");

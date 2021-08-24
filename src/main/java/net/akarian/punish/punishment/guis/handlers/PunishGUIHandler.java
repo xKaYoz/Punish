@@ -19,7 +19,7 @@ import java.util.Set;
 
 public class PunishGUIHandler {
 
-    private static ArrayList<String> punishments = new ArrayList<>();
+    private static final ArrayList<String> punishments = new ArrayList<>();
 
     public static void loadPunishments() {
         Files files = new Files();
@@ -30,9 +30,7 @@ public class PunishGUIHandler {
 
         Set<String> p = config.getKeys(false);
 
-        for (String s : p) {
-            punishments.add(s);
-        }
+        punishments.addAll(p);
 
     }
 
@@ -43,9 +41,12 @@ public class PunishGUIHandler {
         }
         YamlConfiguration config = files.getConfig("guiconfig");
 
-        String name = config.getString(p + ".BookName");
+        String name = config.getString(p + ".Display Name");
+        List<String> lore = new ArrayList<>();
+        lore.add("&8Category: " + p);
+        lore.addAll(config.getStringList(p + ".Lore"));
 
-        return ItemBuilder.build(Material.BOOK, 1, name, null);
+        return ItemBuilder.build(Material.BOOK, 1, name, lore);
     }
 
     public static ItemStack getTier(String p, int tier) {
@@ -55,7 +56,7 @@ public class PunishGUIHandler {
         }
         YamlConfiguration config = files.getConfig("guiconfig");
 
-        String name = config.getString(p + ".Tier " + tier + ".DisplayName");
+        String name = config.getString(p + ".Tier " + tier + ".Display Name");
         List<String> lore = config.getStringList(p + ".Tier " + tier + ".Lore");
         int type = 0;
 

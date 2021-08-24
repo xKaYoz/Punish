@@ -67,15 +67,16 @@ public class TempMuteCommand implements CommandExecutor {
                 /* Determining how long the player will be banned for. */
                 long time = System.currentTimeMillis() + ((seconds * Long.parseLong(timeTypeArray[0]) * 1000));
 
-                switch (PunishmentHandler.tempMute(uuid, staff, reason.toString().replace("-s", "").trim(), time)) {
+                String trim = reason.toString().replace("-s", "").trim();
+                switch (PunishmentHandler.tempMute(uuid, staff, trim, time, isSilent)) {
                     case 0:
                         if (!isSilent) {
-                            Chat.broadcast(lang.getString("TempMute Message").replace("$player$", name).replace("$reason$", reason.toString().replace("-s", "").trim()).replace("$staff$", sender.getName()));
+                            Chat.broadcast(lang.getString("TempMute Message").replace("$player$", name).replace("$reason$", trim).replace("$staff$", sender.getName()));
                         } else {
-                            Chat.sendRawMessage(Bukkit.getConsoleSender(), lang.getString("Silent TempMute Message").replace("$player$", name).replace("$reason$", reason.toString().replace("-s", "").trim()).replace("$staff$", sender.getName()));
+                            Chat.sendRawMessage(Bukkit.getConsoleSender(), lang.getString("Silent TempMute Message").replace("$player$", name).replace("$reason$", trim).replace("$staff$", sender.getName()));
                             for (Player p : Bukkit.getOnlinePlayers()) {
                                 if (p.hasPermission("punish.silent")) {
-                                    Chat.sendRawMessage(p, lang.getString("Silent TempMute Message").replace("$player$", name).replace("$reason$", reason.toString().replace("-s", "").trim()).replace("$staff$", sender.getName()));
+                                    Chat.sendRawMessage(p, lang.getString("Silent TempMute Message").replace("$player$", name).replace("$reason$", trim).replace("$staff$", sender.getName()));
                                 }
                             }
                         }

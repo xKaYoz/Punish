@@ -1,6 +1,5 @@
 package net.akarian.punish.events.GUIEvents;
 
-import net.akarian.punish.Punish;
 import net.akarian.punish.punishment.guis.PunishGUI;
 import net.akarian.punish.utils.PunishmentGUI;
 import org.bukkit.ChatColor;
@@ -28,9 +27,9 @@ public class PunishGUIEvent implements Listener {
 
         if(inv.getHolder() instanceof PunishmentGUI) {
             e.setCancelled(true);
-            if(ChatColor.stripColor(inv.getName()).contains("Punish GUI Page")
-                && item != null
-                && item.hasItemMeta())
+            if (ChatColor.stripColor(inv.getName()).contains("Punish ")
+                    && item != null
+                    && item.hasItemMeta())
                 new PunishGUI().onGUIClick(p, e.getSlot(), item, e.getClick(), inv);
         }
     }

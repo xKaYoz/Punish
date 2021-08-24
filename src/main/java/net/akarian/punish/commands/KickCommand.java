@@ -37,7 +37,7 @@ public class KickCommand implements CommandExecutor {
                 }
 
                 /* Kicking the player and searching the responding code to the kick. */
-                switch (PunishmentHandler.kick(uuid, staff, reason.toString())) {
+                switch (PunishmentHandler.kick(uuid, staff, reason.toString(), isSilent)) {
                     case 0:
                         if (!isSilent) {
                             Chat.broadcast("&r" + lang.getString("Kick Message").replace("$player$", name).replace("$reason$", reason.toString().trim()).replace("$staff$", sender.getName()));

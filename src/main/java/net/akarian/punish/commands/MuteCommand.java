@@ -39,7 +39,7 @@ public class MuteCommand implements CommandExecutor {
 
                 /* Muting the player and searching the responding code to the mute. */
                 String trim = reason.toString().replace("-s", "").trim();
-                switch (PunishmentHandler.mute(uuid, staff, trim)) {
+                switch (PunishmentHandler.mute(uuid, staff, trim, isSilent)) {
                     case 0:
                         if (!isSilent) {
                             Chat.broadcast(lang.getString("Mute Message").replace("$player$", name).replace("$reason$", trim).replace("$staff$", sender.getName()));

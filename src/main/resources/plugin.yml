@@ -1,11 +1,10 @@
 name: Punish
-version: ${project.version}
+version: 0.0.1
 main: net.akarian.punish.Punish
 api-version: 1.13
 prefix: Akarian
 authors: [Austin]
-description: Akarian Punish Plugin
-website: akarian.net
+description: Akarian Punishment Plugin
 commands:
   tempban:
     description: Tempban a player.
@@ -33,6 +32,10 @@ commands:
   chat:
     description: All chat commands.
   staffhistory:
+    description: Check a staff member's history.
   staffrollback:
+    description: Rollback a staff member's history.
   blacklist:
+    description: Blacklist a player.
   unblacklist:
+    description: Unblacklist a player.

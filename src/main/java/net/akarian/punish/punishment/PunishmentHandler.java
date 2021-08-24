@@ -17,10 +17,10 @@ import java.util.UUID;
 
 public class PunishmentHandler {
 
-    private static MySQL sql = Punish.getInstance().getMySQL();
+    private static final MySQL sql = Punish.getInstance().getMySQL();
 
     /* Bans */
-    public static int ban(String uuid, String staff, String reason) {
+    public static int ban(String uuid, String staff, String reason, boolean isSilent) {
         String id = generateID();
 
         Player p = Bukkit.getPlayer(UUID.fromString(uuid));
@@ -46,7 +46,7 @@ public class PunishmentHandler {
 
             try {
 
-                PreparedStatement insert = sql.getConnection().prepareStatement("INSERT INTO " + sql.getBanTable() + " (ID,UUID,STAFF,START,END,REASON,ACTIVE) VALUE (?,?,?,?,?,?,?)");
+                PreparedStatement insert = sql.getConnection().prepareStatement("INSERT INTO " + sql.getBanTable() + " (ID,UUID,STAFF,START,END,REASON,ACTIVE,SILENT) VALUE (?,?,?,?,?,?,?,?)");
                 insert.setString(1, id);
                 insert.setString(2, uuid);
                 insert.setString(3, staff);
@@ -54,6 +54,7 @@ public class PunishmentHandler {
                 insert.setLong(5, -1);
                 insert.setString(6, reason);
                 insert.setBoolean(7, true);
+                insert.setBoolean(8, isSilent);
 
                 insert.executeUpdate();
                 insert.close();
@@ -70,7 +71,7 @@ public class PunishmentHandler {
         return 0;
     }
 
-    public static int tempBan(String uuid, String staff, String reason, long time) {
+    public static int tempBan(String uuid, String staff, String reason, long time, boolean isSilent) {
         String id = generateID();
 
         Player p = Bukkit.getPlayer(UUID.fromString(uuid));
@@ -99,7 +100,7 @@ public class PunishmentHandler {
 
             try {
 
-                PreparedStatement insert = sql.getConnection().prepareStatement("INSERT INTO " + sql.getBanTable() + " (ID,UUID,STAFF,START,END,REASON,ACTIVE) VALUE (?,?,?,?,?,?,?)");
+                PreparedStatement insert = sql.getConnection().prepareStatement("INSERT INTO " + sql.getBanTable() + " (ID,UUID,STAFF,START,END,REASON,ACTIVE,SILENT) VALUE (?,?,?,?,?,?,?,?)");
                 insert.setString(1, id);
                 insert.setString(2, uuid);
                 insert.setString(3, staff);
@@ -107,6 +108,7 @@ public class PunishmentHandler {
                 insert.setLong(5, time);
                 insert.setString(6, reason);
                 insert.setBoolean(7, true);
+                insert.setBoolean(8, isSilent);
 
                 insert.executeUpdate();
                 insert.close();
@@ -262,12 +264,12 @@ public class PunishmentHandler {
     }
 
     /* Mutes */
-    public static int mute(String uuid, String staff, String reason) {
+    public static int mute(String uuid, String staff, String reason, boolean isSilent) {
         String id = generateID();
         if (isMuted(uuid) != 1) {
             try {
 
-                PreparedStatement insert = sql.getConnection().prepareStatement("INSERT INTO " + sql.getMuteTable() + " (ID,UUID,STAFF,START,END,REASON,ACTIVE) VALUE (?,?,?,?,?,?,?)");
+                PreparedStatement insert = sql.getConnection().prepareStatement("INSERT INTO " + sql.getMuteTable() + " (ID,UUID,STAFF,START,END,REASON,ACTIVE,SILENT) VALUE (?,?,?,?,?,?,?,?)");
                 insert.setString(1, id);
                 insert.setString(2, uuid);
                 insert.setString(3, staff);
@@ -275,11 +277,10 @@ public class PunishmentHandler {
                 insert.setLong(5, -1);
                 insert.setString(6, reason);
                 insert.setBoolean(7, true);
+                insert.setBoolean(8, isSilent);
 
                 insert.executeUpdate();
                 insert.close();
-
-                Chat.log("&aSuccessfully muted.", true);
 
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -291,12 +292,12 @@ public class PunishmentHandler {
         return 0;
     }
 
-    public static int tempMute(String uuid, String staff, String reason, long time) {
+    public static int tempMute(String uuid, String staff, String reason, long time, boolean isSilent) {
         String id = generateID();
         if (isMuted(uuid) != 1) {
             try {
 
-                PreparedStatement insert = sql.getConnection().prepareStatement("INSERT INTO " + sql.getMuteTable() + " (ID,UUID,STAFF,START,END,REASON,ACTIVE) VALUE (?,?,?,?,?,?,?)");
+                PreparedStatement insert = sql.getConnection().prepareStatement("INSERT INTO " + sql.getMuteTable() + " (ID,UUID,STAFF,START,END,REASON,ACTIVE,SILENT) VALUE (?,?,?,?,?,?,?,?)");
                 insert.setString(1, id);
                 insert.setString(2, uuid);
                 insert.setString(3, staff);
@@ -304,11 +305,10 @@ public class PunishmentHandler {
                 insert.setLong(5, time);
                 insert.setString(6, reason);
                 insert.setBoolean(7, true);
+                insert.setBoolean(8, isSilent);
 
                 insert.executeUpdate();
                 insert.close();
-
-                Chat.log("&aSuccessfully Muted.", true);
 
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -451,7 +451,7 @@ public class PunishmentHandler {
     }
 
     /* Kicks */
-    public static int kick(String uuid, String staff, String reason) {
+    public static int kick(String uuid, String staff, String reason, boolean isSilent) {
         String id = generateID();
 
         Files files = new Files();
@@ -464,16 +464,17 @@ public class PunishmentHandler {
         }
 
         try {
-            PreparedStatement s = sql.getConnection().prepareStatement("INSERT INTO " + sql.getKickTable() + " (ID,UUID,STAFF,START,REASON) VALUE (?,?,?,?,?)");
+            PreparedStatement insert = sql.getConnection().prepareStatement("INSERT INTO " + sql.getKickTable() + " (ID,UUID,STAFF,START,REASON,SILENT) VALUE (?,?,?,?,?,?)");
 
-            s.setString(1, id);
-            s.setString(2, uuid);
-            s.setString(3, staff);
-            s.setLong(4, System.currentTimeMillis());
-            s.setString(5, reason);
+            insert.setString(1, id);
+            insert.setString(2, uuid);
+            insert.setString(3, staff);
+            insert.setLong(4, System.currentTimeMillis());
+            insert.setString(5, reason);
+            insert.setBoolean(6, isSilent);
 
-            s.executeUpdate();
-            s.close();
+            insert.executeUpdate();
+            insert.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -527,11 +528,11 @@ public class PunishmentHandler {
     }
 
     /* Warns */
-    public static int warn(String uuid, String staff, long time, String reason) {
+    public static int warn(String uuid, String staff, long time, String reason, boolean isSilent) {
         long nt = System.currentTimeMillis() + (time * 1000);
         String id = generateID();
         try {
-            PreparedStatement insert = sql.getConnection().prepareStatement("INSERT INTO " + sql.getWarnTable() + " (ID,UUID,STAFF,START,END,REASON,ACTIVE) VALUE (?,?,?,?,?,?,?)");
+            PreparedStatement insert = sql.getConnection().prepareStatement("INSERT INTO " + sql.getWarnTable() + " (ID,UUID,STAFF,START,END,REASON,ACTIVE,SILENT) VALUE (?,?,?,?,?,?,?,?)");
             insert.setString(1, id);
             insert.setString(2, uuid);
             insert.setString(3, staff);
@@ -539,6 +540,7 @@ public class PunishmentHandler {
             insert.setLong(5, nt);
             insert.setString(6, reason);
             insert.setBoolean(7, true);
+            insert.setBoolean(8, isSilent);
 
             insert.executeUpdate();
             insert.close();
@@ -659,8 +661,8 @@ public class PunishmentHandler {
 
             if (bs.next()) {
                 if (bs.getLong(5) == -1)
-                    return new Punishment(PunishmentType.TEMPBAN, bs.getString(1), UUID.fromString(bs.getString(2)), bs.getString(3), bs.getLong(4), bs.getLong(5), bs.getString(6), bs.getBoolean(7));
-                return new Punishment(PunishmentType.BAN, bs.getString(1), UUID.fromString(bs.getString(2)), bs.getString(3), bs.getLong(4), bs.getLong(5), bs.getString(6), bs.getBoolean(7));
+                    return new Punishment(PunishmentType.BAN, bs.getString(1), UUID.fromString(bs.getString(2)), bs.getString(3), bs.getLong(4), bs.getLong(5), bs.getString(6), bs.getBoolean(7));
+                return new Punishment(PunishmentType.TEMPBAN, bs.getString(1), UUID.fromString(bs.getString(2)), bs.getString(3), bs.getLong(4), bs.getLong(5), bs.getString(6), bs.getBoolean(7));
             }
 
             PreparedStatement mute = sql.getConnection().prepareStatement("SELECT * FROM " + sql.getMuteTable() + " WHERE ID=?");
@@ -878,26 +880,27 @@ public class PunishmentHandler {
     }
 
     /* IPs */
-    public static int blacklist(String ip, String staff, String reason) {
+    public static int blacklist(String ip, String staff, String reason, boolean isSilent) {
 
         Files files = new Files();
         FileConfiguration lang = files.getConfig("lang");
         String id = generateID();
 
-        if(!isBlacklisted(ip)) {
+        if (!isBlacklisted(ip)) {
 
             try {
-                PreparedStatement statement = sql.getConnection().prepareStatement("INSERT INTO " + sql.getBlTable() + " (ID,IP,STAFF,START,REASON,ACTIVE) VALUE (?,?,?,?,?,?)");
+                PreparedStatement insert = sql.getConnection().prepareStatement("INSERT INTO " + sql.getBlTable() + " (ID,IP,STAFF,START,REASON,ACTIVE,SILENT) VALUE (?,?,?,?,?,?,?)");
 
-                statement.setString(1, id);
-                statement.setString(2, ip);
-                statement.setString(3, staff);
-                statement.setLong(4, System.currentTimeMillis());
-                statement.setString(5, reason);
-                statement.setBoolean(6, true);
+                insert.setString(1, id);
+                insert.setString(2, ip);
+                insert.setString(3, staff);
+                insert.setLong(4, System.currentTimeMillis());
+                insert.setString(5, reason);
+                insert.setBoolean(6, true);
+                insert.setBoolean(7, isSilent);
 
-                statement.executeUpdate();
-                statement.close();
+                insert.executeUpdate();
+                insert.close();
 
                 String staffName;
                 if (staff.equalsIgnoreCase("Console")) {
@@ -914,48 +917,46 @@ public class PunishmentHandler {
                             .replace("$id$", id)));
                 }
 
-                for(UUID uuid : getUUIDsFromIP(ip)) {
-                    ban(uuid.toString(), staff, reason);
+                for (UUID uuid : getUUIDsFromIP(ip)) {
+                    ban(uuid.toString(), staff, "Blacklist #" + id, isSilent);
                 }
-
-                return 2;
             } catch (SQLException e) {
                 e.printStackTrace();
-                return 1;
+                return 2;
             }
-        }
-
+        } else return 1;
         return 0;
     }
 
     public static int unblacklist(String ip) {
-        try {
-            PreparedStatement statement = sql.getConnection().prepareStatement("SELECT * FROM " + sql.getBlTable() + " WHERE IP=?");
+        if (isBlacklisted(ip)) {
+            try {
+                PreparedStatement blStatement = sql.getConnection().prepareStatement("SELECT * FROM " + sql.getBlTable() + " WHERE IP=?");
 
-            statement.setString(1, ip);
+                blStatement.setString(1, ip);
 
-            ResultSet r = statement.executeQuery();
+                ResultSet r = blStatement.executeQuery();
 
-            while (r.next()) {
-                if (r.getBoolean(6)) {
+                while (r.next()) {
+                    if (r.getBoolean(6)) {
 
-                    PreparedStatement update = sql.getConnection().prepareStatement("UPDATE " + sql.getBlTable() + " SET ACTIVE=? WHERE IP=?");
+                        PreparedStatement update = sql.getConnection().prepareStatement("UPDATE " + sql.getBlTable() + " SET ACTIVE=? WHERE IP=?");
 
-                    update.setBoolean(1, false);
-                    update.setString(2, ip);
+                        update.setBoolean(1, false);
+                        update.setString(2, ip);
 
-                    update.executeUpdate();
-                    update.close();
+                        update.executeUpdate();
+                        update.close();
 
+                    }
                 }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return 2;
             }
-            return 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return 2;
+        } else return 1;
+        return 0;
     }
 
     public static boolean isBlacklisted(String ip) {
@@ -1108,8 +1109,15 @@ public class PunishmentHandler {
     /* ID Manager */
     public static String generateID() {
         Random r = new Random();
-        String st = "#" + getLetter() + r.nextInt(9) + r.nextInt(9) + getLetter() + r.nextInt(9) + getLetter() + r.nextInt(9) + r.nextInt(9);
-        return st;
+        StringBuilder ns = new StringBuilder();
+        for (int i = 0; i <= 5; i++) {
+            if (r.nextInt(2) == 1) {
+                ns.append(getLetter());
+            } else {
+                ns.append(r.nextInt(10));
+            }
+        }
+        return ns.toString();
     }
 
     public static char getLetter() {

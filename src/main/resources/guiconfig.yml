@@ -1,89 +1,70 @@
-#GUI Configuration Section
-#Here is a template on how to make a new section!
-#Give this the same name as the book name! If not, it will not work!
 X-Ray:
-  #Give this the same name as the name above, but you can add color codes.
-  BookName: "&e&lX-Ray"
-  #This is for the teir 1 glass pane.
+  Display Name: "&cX-Ray"
+  Lore:
+    - "&7Place any information in here!"
+    - "&7Supports multi-line"
   Tier 1:
-    #Display name of the glass pane.
-    DisplayName: "&a5 Day Ban"
-    #Lore of the glass pane.
+    Display Name: "&61 Day Ban"
     Lore:
-      - "&7This is the tier 1 ban."
-    #Commands to be ran by the player.
-    PlayerCommands:
-      - "tempban %player% 5d X-Ray -s"
-    #Commands to be ran by the Console.
-    ConsoleCommands:
-      - "Say This is a test Console Command."
+      - "&7Ban the player for 1 Day"
+      - "&7for x-ray"
+    Player Commands:
+      - "tempban %player% 1d X-Ray -s"
+    Console Commands:
+      - "say Configure GUIConfig.yml"
   Tier 2:
-    #Display name of the glass pane.
-    DisplayName: "&a10 Day Ban"
-    #Lore of the glass pane.
+    Display Name: "&67 Day Ban"
     Lore:
-      - "&7This is the tier 2 ban."
-    #Commands to be ran by the player.
-    PlayerCommands:
-      - "tempban %player% 10d X-Ray -s"
-    #Commands to be ran by the Console.
-    ConsoleCommands:
-      - "None"
+      - "&7Ban the player for 7 Days"
+      - "&7for x-ray"
+    Player Commands:
+      - "tempban %player% 7d X-Ray -s"
   Tier 3:
-    #Display name of the glass pane.
-    DisplayName: "&a15 Day Ban"
-    #Lore of the glass pane.
+    Display Name: "&615 Day Ban"
     Lore:
-      - "&7This is the tier 3 ban."
-    #Commands to be ran by the player.
-    PlayerCommands:
+      - "&7Ban the player for 15 Days"
+      - "&7for x-ray"
+    Player Commands:
       - "tempban %player% 15d X-Ray -s"
-    #Commands to be ran by the Console.
-    ConsoleCommands:
-      - "None"
   Tier 4:
-    #Display name of the glass pane.
-    DisplayName: "&a30 Day Ban"
-    #Lore of the glass pane.
+    Display Name: "&630 Day Ban"
     Lore:
-      - "&7This is the tier 4 ban."
-    #Commands to be ran by the player.
-    PlayerCommands:
+      - "&7Ban the player for 30 Days"
+      - "&7for x-ray"
+    Player Commands:
       - "tempban %player% 30d X-Ray -s"
-    #Commands to be ran by the Console.
-    ConsoleCommands:
-      - "None"
-Client:
-  BookName: "&e&lHacked Client"
+Flying:
+  Display Name: "&cFlying"
+  Lore:
+    - "&7Place any information in here!"
+    - "&7Supports multi-line"
   Tier 1:
-    DisplayName: "&a30 Day Ban"
+    Display Name: "&615 Day Ban"
     Lore:
-      - "&7This is the tier 1 ban."
-    PlayerCommands:
-      - "tempban %player% 30d Hacked Client -s"
-    ConsoleCommands:
-      - "say This is a test Console Command."
+      - "&7Ban the player for 5 Days"
+      - "&7for flying"
+    Player Commands:
+      - "tempban %player% 15d Flying -s"
+    Console Commands:
+      - "say Configure GUIConfig.yml"
   Tier 2:
-    DisplayName: "&a90 Day Ban"
+    Display Name: "&630 Day Ban"
     Lore:
-      - "&7This is the tier 2 ban."
-    PlayerCommands:
-      - "tempban %player% 90d Hacked Client -s"
-    ConsoleCommands:
-      - "None"
+      - "&7Ban the player for 5 Days"
+      - "&7for flying"
+    Player Commands:
+      - "tempban %player% 30d Flying -s"
   Tier 3:
-    DisplayName: "&a365 Day Ban"
+    Display Name: "&660 Day Ban"
     Lore:
-      - "&7This is the tier 3 ban."
-    PlayerCommands:
-      - "tempban %player% 365d Hacked Client -s"
-    ConsoleCommands:
-      - "None"
+      - "&7Ban the player for 5 Days"
+      - "&7for flying"
+    Player Commands:
+      - "tempban %player% 60d Flying -s"
   Tier 4:
-    DisplayName: "&aPermanent Ban"
+    Display Name: "&4Permanent Ban"
     Lore:
-      - "&7This is the tier 4 ban."
-    PlayerCommands:
-      - "ban %player% Hacked Client -s"
-    ConsoleCommands:
-      - "None"
+      - "&7Ban the player permanently"
+      - "&7for flying"
+    Player Commands:
+      - "ban %player% Flying -s"

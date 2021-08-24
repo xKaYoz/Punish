@@ -29,26 +29,27 @@ public class BanCommand implements CommandExecutor {
                 boolean isSilent = args[args.length - 1].equalsIgnoreCase("-s");
                 String uuid = Bukkit.getOfflinePlayer(args[0]).getUniqueId().toString();
                 String name = Bukkit.getOfflinePlayer(args[0]).getName();
-                String reason = "";
+                StringBuilder reason = new StringBuilder();
 
                 /* Checking if the user provided a reason. If not, grab the default reason. */
                 if (args.length == 1) {
-                    reason = config.getString("DefaultBanReason");
+                    reason = new StringBuilder(config.getString("DefaultBanReason"));
                 } else {
                     for (int i = 1; i < args.length; i++) {
-                        reason = reason + args[i] + " ";
+                        reason.append(args[i]).append(" ");
                     }
                 }
 
                 /* Banning the player and searching the responding code to the ban. */
-                switch (PunishmentHandler.ban(uuid, staff, reason.replace("-s", "").trim())) {
+                final String trim = reason.toString().replace("-s", "").trim();
+                switch (PunishmentHandler.ban(uuid, staff, trim, isSilent)) {
                     case 0:
                         if (!isSilent) {
-                            Chat.broadcast(lang.getString("Ban Message").replace("$player$", name).replace("$reason$", reason.replace("-s", "").trim()).replace("$staff$", sender.getName()));
+                            Chat.broadcast(lang.getString("Ban Message").replace("$player$", name).replace("$reason$", trim).replace("$staff$", sender.getName()));
                         } else {
                             for (Player p : Bukkit.getOnlinePlayers()) {
                                 if (p.hasPermission("punish.silent")) {
-                                    Chat.sendRawMessage(p, lang.getString("Silent Ban Message").replace("$player$", name).replace("$reason$", reason.replace("-s", "").trim()).replace("$staff$", sender.getName()));
+                                    Chat.sendRawMessage(p, lang.getString("Silent Ban Message").replace("$player$", name).replace("$reason$", trim).replace("$staff$", sender.getName()));
                                 }
                             }
                         }

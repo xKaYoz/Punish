@@ -45,6 +45,11 @@ public class BanCheckEvent implements Listener {
                     .replace("$id$", blacklist.getId());
 
             e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, Chat.format(blacklistMessage));
+
+            if (ban == null) {
+                PunishmentHandler.ban(uuid, "CONSOLE", "Blacklist #" + blacklist.getId(), true);
+            }
+
             return;
         }
 

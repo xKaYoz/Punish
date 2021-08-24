@@ -26,24 +26,33 @@ public class HistoryCommand implements CommandExecutor {
 
                 if (args.length == 1) {
 
-                    if(args[0].startsWith("#")){
+                    //Check if it is an ID
 
-                        Punishment punishment = PunishmentHandler.getPunishment(args[0]);
+                    Punishment punishment = PunishmentHandler.getPunishment(args[0]);
 
-                        if(punishment == null){
-                            Chat.sendMessage(p, "&cThere is not a punishment with that ID number.");
-                            return true;
+                    //If not
+                    if (punishment == null) {
+                        String uuid;
+
+                        if (Bukkit.getPlayer(args[0]) != null) {
+                            uuid = Bukkit.getPlayer(args[0]).getUniqueId().toString();
+                        } else {
+                            uuid = Bukkit.getOfflinePlayer(args[0]).getUniqueId().toString();
                         }
 
+                        if (PunishmentHandler.getPunishments(uuid).size() == 0) {
+                            Chat.sendMessage(sender, "&cThere is no Punishment History for that player.");
+                        } else p.openInventory(new HistoryMenuGUI(Bukkit.getOfflinePlayer(args[0])).getInventory());
+                    } else {
                         String duration = "&4Permanent";
                         String remaining = "&4Never";
                         String staffName = "CONSOLE";
                         long l = punishment.getEnd() - punishment.getStart() + 1;
                         if (punishment.getEnd() != -1) {
                             duration = Chat.formatTime((l) / 1000);
-                            remaining = Chat.formatTime((punishment.getEnd() - System.currentTimeMillis())/1000);
+                            remaining = Chat.formatTime((punishment.getEnd() - System.currentTimeMillis()) / 1000);
                         }
-                        if(!punishment.getStaff().equalsIgnoreCase("console")){
+                        if (!punishment.getStaff().equalsIgnoreCase("console")) {
                             staffName = Bukkit.getOfflinePlayer(UUID.fromString(punishment.getStaff())).getName();
                         }
 
@@ -58,29 +67,16 @@ public class HistoryCommand implements CommandExecutor {
                         Chat.sendRawMessage(p, "&cPunishment Type&8 - &f" + punishment.getType().getString());
                         Chat.sendRawMessage(p, "&cStaff&8 - &f" + staffName + (!punishment.getStaff().equalsIgnoreCase("console") ? " (" + punishment.getStaff() + ")" : ""));
                         Chat.sendRawMessage(p, "&cReason&8 - &f" + punishment.getReason());
-                        if(punishment.getType() != PunishmentType.KICK){
+                        if (punishment.getType() != PunishmentType.KICK) {
                             Chat.sendRawMessage(p, "&cActive&8 - &f" + (punishment.isActive() ? "&aTrue" : "&cFalse"));
                             Chat.sendRawMessage(p, "&cDuration&8 - &f" + duration);
-                            if(punishment.isActive()){
+                            if (punishment.isActive()) {
                                 Chat.sendRawMessage(p, "&cExpires&8 - &f" + remaining);
                             }
                         }
                         Chat.line(p);
-                        return true;
                     }
-
-                    String uuid;
-
-                    if (Bukkit.getPlayer(args[0]) != null) {
-                        uuid = Bukkit.getPlayer(args[0]).getUniqueId().toString();
-                    } else {
-                        uuid = Bukkit.getOfflinePlayer(args[0]).getUniqueId().toString();
-                    }
-
-                    if (PunishmentHandler.getPunishments(uuid).size() == 0) {
-                        Chat.sendMessage(sender, "&cThere is no Punishment History for that player.");
-                    } else p.openInventory(new HistoryMenuGUI(Bukkit.getOfflinePlayer(args[0])).getInventory());
-
+                    return true;
                 } else if (args.length == 2 && args[1].equalsIgnoreCase("purge")) {
 
                     if (sender.hasPermission("punish.history.purge")) {
@@ -95,7 +91,7 @@ public class HistoryCommand implements CommandExecutor {
                     }
 
                 } else {
-                    Chat.usage(p, "history <player> [purge]");
+                    Chat.usage(p, "history <player/id> [purge]");
                 }
 
             } else {

@@ -80,7 +80,7 @@ public class TempBanCommand implements CommandExecutor {
 
                 /* Banning the player and searching the responding code to the ban. */
                 String trim = reason.toString().replace("-s", "").trim();
-                switch (PunishmentHandler.tempBan(uuid, staff, trim, time)) {
+                switch (PunishmentHandler.tempBan(uuid, staff, trim, time, isSilent)) {
                     case 0:
                         if (!isSilent) {
                             Chat.broadcast(lang.getString("TempBan Message").replace("$player$", name).replace("$reason$", trim).replace("$staff$", sender.getName()));

@@ -17,7 +17,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -52,7 +52,7 @@ public class PunishGUI implements PunishmentGUI {
         }
         YamlConfiguration config = files.getConfig("guiconfig");
 
-        if (item.getType() == Material.DOUBLE_PLANT) {
+        if (item.getType() == Material.NETHER_STAR) {
             if (item.getItemMeta().getDisplayName().equalsIgnoreCase(Chat.format("&eNext Page"))) {
                 String name = ChatColor.stripColor(inv.getName());
                 String[] strs = name.split(" ");
@@ -66,7 +66,7 @@ public class PunishGUI implements PunishmentGUI {
             } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase(Chat.format("&ePrevious Page"))) {
                 String name = ChatColor.stripColor(inv.getName());
                 String[] strs = name.split(" ");
-                Integer page = Integer.parseInt(strs[strs.length - 1]);
+                int page = Integer.parseInt(strs[strs.length - 1]);
 
                 page--;
 
@@ -78,54 +78,69 @@ public class PunishGUI implements PunishmentGUI {
 
         if (item.getType() == Material.STAINED_GLASS_PANE) {
             int id = item.getData().getData();
-            if (id == 5) {
-                String punishment = ChatColor.stripColor(inv.getItem(slot - 9).getItemMeta().getDisplayName());
-                List<String> pCommands = config.getStringList(punishment + ".Tier 1.PlayerCommands");
-                List<String> cCommands = config.getStringList(punishment + ".Tier 1.ConsoleCommands");
-                for(String s : pCommands){
-                    Bukkit.dispatchCommand(p, s.replace("%player%", op.getName()));
-                }
-                for(String s : cCommands){
-                    if(!s.equalsIgnoreCase("none")) {
-                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), s.replace("%player%", op.getName()));
+            String punishment;
+            switch (id) {
+                case 5:
+                    punishment = ChatColor.stripColor(inv.getItem(slot - 9).getItemMeta().getLore().toArray()[0].toString().split(" ")[1]);
+                    Chat.broadcast(punishment);
+                    if (config.contains(punishment + ".Tier 1.Player Commands")) {
+                        for (String s : config.getStringList(punishment + ".Tier 1.Player Commands")) {
+                            Bukkit.dispatchCommand(p, s.replace("%player%", op.getName()));
+                        }
                     }
-                }
-            } else if (id == 4) {
-                String punishment = ChatColor.stripColor(inv.getItem(slot - 18).getItemMeta().getDisplayName());
-                List<String> pCommands = config.getStringList(punishment + ".Tier 2.PlayerCommands");
-                List<String> cCommands = config.getStringList(punishment + ".Tier 2.ConsoleCommands");
-                for(String s : pCommands){
-                    Bukkit.dispatchCommand(p, s.replace("%player%", op.getName()));
-                }
-                for(String s : cCommands){
-                    if(!s.equalsIgnoreCase("none")) {
-                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), s.replace("%player%", op.getName()));
+                    if (config.contains(punishment + ".Tier 1.Console Commands")) {
+                        for (String s : config.getStringList(punishment + ".Tier 1.Console Commands")) {
+                            if (!s.equalsIgnoreCase("none")) {
+                                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), s.replace("%player%", op.getName()));
+                            }
+                        }
                     }
-                }
-            } else if (id == 1) {
-                String punishment = ChatColor.stripColor(inv.getItem(slot - 27).getItemMeta().getDisplayName());
-                List<String> pCommands = config.getStringList(punishment + ".Tier 3.PlayerCommands");
-                List<String> cCommands = config.getStringList(punishment + ".Tier 3.ConsoleCommands");
-                for(String s : pCommands){
-                    Bukkit.dispatchCommand(p, s.replace("%player%", op.getName()));
-                }
-                for(String s : cCommands){
-                    if(!s.equalsIgnoreCase("none")) {
-                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), s.replace("%player%", op.getName()));
+                    break;
+                case 4:
+                    punishment = ChatColor.stripColor(inv.getItem(slot - 18).getItemMeta().getDisplayName());
+                    if (config.contains(punishment + ".Tier 2.Player Commands")) {
+                        for (String s : config.getStringList(punishment + ".Tier 2.Player Commands")) {
+                            Bukkit.dispatchCommand(p, s.replace("%player%", op.getName()));
+                        }
                     }
-                }
-            } else if (id == 14) {
-                String punishment = ChatColor.stripColor(inv.getItem(slot - 36).getItemMeta().getDisplayName());
-                List<String> pCommands = config.getStringList(punishment + ".Tier 4.PlayerCommands");
-                List<String> cCommands = config.getStringList(punishment + ".Tier 4.ConsoleCommands");
-                for(String s : pCommands){
-                    Bukkit.dispatchCommand(p, s.replace("%player%", op.getName()));
-                }
-                for(String s : cCommands){
-                    if(!s.equalsIgnoreCase("none")) {
-                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), s.replace("%player%", op.getName()));
+                    if (config.contains(punishment + ".Tier 2.Console Commands")) {
+                        for (String s : config.getStringList(punishment + ".Tier 2.Console Commands")) {
+                            if (!s.equalsIgnoreCase("none")) {
+                                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), s.replace("%player%", op.getName()));
+                            }
+                        }
                     }
-                }
+                    break;
+                case 1:
+                    punishment = ChatColor.stripColor(inv.getItem(slot - 27).getItemMeta().getDisplayName());
+                    if (config.contains(punishment + ".Tier 3.Player Commands")) {
+                        for (String s : config.getStringList(punishment + ".Tier 3.Player Commands")) {
+                            Bukkit.dispatchCommand(p, s.replace("%player%", op.getName()));
+                        }
+                    }
+                    if (config.contains(punishment + ".Tier 3.Console Commands")) {
+                        for (String s : config.getStringList(punishment + ".Tier 3.Console Commands")) {
+                            if (!s.equalsIgnoreCase("none")) {
+                                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), s.replace("%player%", op.getName()));
+                            }
+                        }
+                    }
+                    break;
+                case 14:
+                    punishment = ChatColor.stripColor(inv.getItem(slot - 36).getItemMeta().getDisplayName());
+                    if (config.contains(punishment + ".Tier 4.Player Commands")) {
+                        for (String s : config.getStringList(punishment + ".Tier 4.Player Commands")) {
+                            Bukkit.dispatchCommand(p, s.replace("%player%", op.getName()));
+                        }
+                    }
+                    if (config.contains(punishment + ".Tier 4.Console Commands")) {
+                        for (String s : config.getStringList(punishment + ".Tier 4.Console Commands")) {
+                            if (!s.equalsIgnoreCase("none")) {
+                                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), s.replace("%player%", op.getName()));
+                            }
+                        }
+                    }
+                    break;
             }
             p.closeInventory();
         }
@@ -135,7 +150,7 @@ public class PunishGUI implements PunishmentGUI {
     @Override
     public Inventory getInventory() {
 
-        Inventory inv = Bukkit.createInventory(this, 54, Chat.format("&6Punish GUI Page " + page));
+        Inventory inv = Bukkit.createInventory(this, 54, Chat.format("&c&lPunish " + punish.getName() + " page " + page));
 
         List<String> punishments = PunishGUIHandler.getPunishments();
         int row = 10;
@@ -145,11 +160,11 @@ public class PunishGUI implements PunishmentGUI {
         //7 on one page
 
         if (page != 1) {
-            ItemStack previous = ItemBuilder.build(Material.DOUBLE_PLANT, 1, "&ePrevious Page", Arrays.asList("&7Go to the previous page."));
+            ItemStack previous = ItemBuilder.build(Material.NETHER_STAR, 1, "&6Previous Page", Collections.singletonList("&7Go to the previous page."));
             inv.setItem(45, previous);
         }
         if (punishments.size() > end) {
-            ItemStack next = ItemBuilder.build(Material.DOUBLE_PLANT, 1, "&eNext Page", Arrays.asList("&7Go to the next page."));
+            ItemStack next = ItemBuilder.build(Material.NETHER_STAR, 1, "&6Next Page", Collections.singletonList("&7Go to the next page."));
             inv.setItem(53, next);
         }
 

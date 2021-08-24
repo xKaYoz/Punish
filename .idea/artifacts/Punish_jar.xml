@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Punish:jar">
+    <output-path>$USER_HOME$/Desktop/Development Server/Plugins</output-path>
+    <root id="archive" name="Punish.jar">
+      <element id="module-output" name="Punish" />
+    </root>
+  </artifact>
+</component>

@@ -18,36 +18,75 @@ public class StaffHistoryCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender.hasPermission("punish.staffhistory")) {
 
-            if(sender instanceof Player) {
-
-                 Player p = (Player) sender;
-
-                 if(args.length == 1) {
-                     String uuid;
-
-                     if (Bukkit.getPlayer(args[0]) != null) {
-                         uuid = Bukkit.getPlayer(args[0]).getUniqueId().toString();
-                     } else {
-                         uuid = Bukkit.getOfflinePlayer(args[0]).getUniqueId().toString();
-                     }
-                     if(PunishmentHandler.getStaffPunishments(uuid).size() == 0) {
-                         Chat.sendMessage(sender, "&cThere is no Staff History for that player.");
-                     } else p.openInventory(new StaffHistoryMenuGUI(UUID.fromString(uuid)).getInventory());
-                 } else if(args.length == 2 && args[1].equalsIgnoreCase("purge")) {
-                     List<Punishment> punishments = PunishmentHandler.getStaffPunishments(Bukkit.getOfflinePlayer(args[0]).getUniqueId().toString());
-
-                     Chat.sendRawMessage(p, "&aPurging... Please wait.");
-
-                     for(Punishment pn : punishments) {
-                         PunishmentHandler.removePunishment(pn.getId());
-                     }
-
-                     Chat.sendRawMessage(p, "&aYou have successfully purged " + args[0] + "'s Staff History.");
-
-                 }
-
+            if (args.length == 0) {
+                Chat.usage(sender, "/staffhistory <player> {purge}");
+                return true;
             }
 
+            if (sender instanceof Player) {
+
+                Player p = (Player) sender;
+
+                if (args.length == 1) {
+                    String uuid;
+
+                    if (Bukkit.getPlayer(args[0]) != null) {
+                        uuid = Bukkit.getPlayer(args[0]).getUniqueId().toString();
+                    } else {
+                        uuid = Bukkit.getOfflinePlayer(args[0]).getUniqueId().toString();
+                    }
+                    if (PunishmentHandler.getStaffPunishments(uuid).size() == 0) {
+                        Chat.sendMessage(p, "&cThere is no Staff History for that player.");
+                    } else p.openInventory(new StaffHistoryMenuGUI(UUID.fromString(uuid)).getInventory());
+                } else if (args.length == 2 && args[1].equalsIgnoreCase("purge")) {
+                    if (p.hasPermission("punish.staffhistory.purge")) {
+                        List<Punishment> punishments = PunishmentHandler.getStaffPunishments(Bukkit.getOfflinePlayer(args[0]).getUniqueId().toString());
+
+                        Chat.sendRawMessage(p, "&aPurging... Please wait.");
+
+                        for (Punishment pn : punishments) {
+                            PunishmentHandler.removePunishment(pn.getId());
+                        }
+
+                        Chat.sendRawMessage(p, "&aYou have successfully purged " + args[0] + "'s Staff History.");
+                    } else {
+                        Chat.noPermission(p);
+                    }
+                }
+            } else {
+
+                if (args.length == 1) {
+                    String uuid;
+
+                    if (Bukkit.getPlayer(args[0]) != null) {
+                        uuid = Bukkit.getPlayer(args[0]).getUniqueId().toString();
+                    } else {
+                        uuid = Bukkit.getOfflinePlayer(args[0]).getUniqueId().toString();
+                    }
+                    if (PunishmentHandler.getStaffPunishments(uuid).size() == 0) {
+                        Chat.sendMessage(sender, "&cThere is no Staff History for that player.");
+                    } else {
+                        Chat.sendMessage(sender, "&a" + Bukkit.getPlayer(UUID.fromString(uuid)).getName() + " has dealt " + PunishmentHandler.getStaffPunishments(uuid).size() + " punishments.");
+                    }
+                } else if (args.length == 2 && args[1].equalsIgnoreCase("purge")) {
+                    if (sender.hasPermission("punish.staffhistory.purge")) {
+                        List<Punishment> punishments = PunishmentHandler.getStaffPunishments(Bukkit.getOfflinePlayer(args[0]).getUniqueId().toString());
+
+                        Chat.sendRawMessage(sender, "&aPurging... Please wait.");
+
+                        for (Punishment pn : punishments) {
+                            PunishmentHandler.removePunishment(pn.getId());
+                        }
+
+                        Chat.sendRawMessage(sender, "&aYou have successfully purged " + args[0] + "'s Staff History.");
+
+                    } else {
+                        Chat.noPermission(sender);
+                    }
+                }
+            }
+        } else {
+            Chat.noPermission(sender);
         }
         return false;
     }
