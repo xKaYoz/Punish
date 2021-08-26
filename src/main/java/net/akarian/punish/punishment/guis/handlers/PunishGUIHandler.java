@@ -58,19 +58,18 @@ public class PunishGUIHandler {
 
         String name = config.getString(p + ".Tier " + tier + ".Display Name");
         List<String> lore = config.getStringList(p + ".Tier " + tier + ".Lore");
-        int type = 0;
 
         if (tier == 1) {
-            type = 5;
+            return ItemBuilder.build(Material.LIME_STAINED_GLASS_PANE, 1, name, lore);
         } else if (tier == 2) {
-            type = 4;
+            return ItemBuilder.build(Material.YELLOW_STAINED_GLASS_PANE, 1, name, lore);
         } else if (tier == 3) {
-            type = 1;
+            return ItemBuilder.build(Material.ORANGE_STAINED_GLASS_PANE, 1, name, lore);
         } else if (tier == 4) {
-            type = 14;
+            return ItemBuilder.build(Material.RED_STAINED_GLASS_PANE, 1, name, lore);
+        } else {
+            return null;
         }
-
-        return ItemBuilder.build(Material.STAINED_GLASS_PANE, 1, type, name, lore);
     }
 
     public static ArrayList<String> getPunishments() {

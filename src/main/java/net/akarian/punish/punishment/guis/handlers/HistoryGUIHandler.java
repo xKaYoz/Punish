@@ -112,7 +112,7 @@ public class HistoryGUIHandler {
 
         //Setting the bottom navigator
         for (int t = 45; t <= 53; t++) {
-            inv.setItem(t, ItemBuilder.build(Material.STAINED_GLASS_PANE, 1, 7, " ", Collections.singletonList("")));
+            inv.setItem(t, ItemBuilder.build(Material.GRAY_STAINED_GLASS_PANE, 1, " ", Collections.singletonList("")));
         }
 
 

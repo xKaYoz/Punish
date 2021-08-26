@@ -20,7 +20,7 @@ public class StaffHistoryMenuEvent implements Listener {
 
         if(inv.getHolder() instanceof PunishmentGUI) {
             e.setCancelled(true);
-            if(ChatColor.stripColor(inv.getName()).contains("'s Staff History")
+            if (ChatColor.stripColor(e.getView().getTitle()).contains("'s Staff History")
                     && item != null
                     && item.hasItemMeta())
                 new StaffHistoryMenuGUI().onGUIClick(p, e.getSlot(), item, e.getClick(), inv);

@@ -37,7 +37,7 @@ public class StaffHistoryGUI implements PunishmentGUI {
     @Override
     public void onGUIClick(Player p, int slot, ItemStack item, ClickType click, Inventory inv) {
 
-        String[] split = p.getOpenInventory().getTopInventory().getName().split(" ");
+        String[] split = p.getOpenInventory().getTitle().split(" ");
         String main = ChatColor.stripColor(split[0].split("'")[0]);
         String punished = ChatColor.stripColor(split[1].replace("s", ""));
 

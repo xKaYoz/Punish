@@ -42,11 +42,11 @@ public class HistoryGUI implements PunishmentGUI {
     @Override
     public void onGUIClick(Player p, int slot, ItemStack item, ClickType type, Inventory inv) {
 
-        String punished = ChatColor.stripColor(p.getOpenInventory().getTopInventory().getName().split(" ")[1].replace("s", ""));
+        String punished = ChatColor.stripColor(p.getOpenInventory().getTitle().split(" ")[1].replace("s", ""));
 
         if (item.getType() == Material.BOOK) {
             if (type == ClickType.SHIFT_RIGHT) {
-                String main = ChatColor.stripColor(p.getOpenInventory().getTopInventory().getName().split(" ")[0].split("'")[0]);
+                String main = ChatColor.stripColor(p.getOpenInventory().getTitle().split(" ")[0].split("'")[0]);
                 String ID = ChatColor.stripColor(item.getItemMeta().getLore().get(2)).replace("ID: ", "");
                 for (int i = 0; i <= 44; i++) {
                     p.getOpenInventory().setItem(i, ItemBuilder.build(Material.BARRIER, 1, "&cRefreshing...", Collections.emptyList()));
@@ -59,10 +59,10 @@ public class HistoryGUI implements PunishmentGUI {
                 p.closeInventory();
             }
         } else if (item.getType() == Material.NETHER_STAR) {
-            String main = ChatColor.stripColor(p.getOpenInventory().getTopInventory().getName().split(" ")[0].split("'")[0]);
+            String main = ChatColor.stripColor(p.getOpenInventory().getTitle().split(" ")[0].split("'")[0]);
             p.openInventory(new HistoryMenuGUI(Bukkit.getOfflinePlayer(main)).getInventory());
         } else if (item.getType() == Material.PAPER) {
-            String main = ChatColor.stripColor(p.getOpenInventory().getTopInventory().getName().split(" ")[0].split("'")[0]);
+            String main = ChatColor.stripColor(p.getOpenInventory().getTitle().split(" ")[0].split("'")[0]);
             //Left click change category Right Click change order
             //  Date | Duration
             if (type == ClickType.LEFT) {

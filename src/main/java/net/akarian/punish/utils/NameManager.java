@@ -38,6 +38,10 @@ public class NameManager {
      */
     public static String getName(String uuid) {
 
+        if (uuid.equalsIgnoreCase("concole")) {
+            return "CONSOLE";
+        }
+
         if (Bukkit.getPlayer(UUID.fromString(uuid)) != null) return Bukkit.getPlayer(UUID.fromString(uuid)).getName();
         if (cache.containsKey(UUID.fromString(uuid))) {
             HashMap<String, Object> nc = cache.get(UUID.fromString(uuid));

@@ -51,100 +51,98 @@ public class PunishGUI implements PunishmentGUI {
             Punish.getInstance().saveGuiConfig();
         }
         YamlConfiguration config = files.getConfig("guiconfig");
+        String punishment;
 
-        if (item.getType() == Material.NETHER_STAR) {
-            if (item.getItemMeta().getDisplayName().equalsIgnoreCase(Chat.format("&eNext Page"))) {
-                String name = ChatColor.stripColor(inv.getName());
-                String[] strs = name.split(" ");
-                Integer page = Integer.parseInt(strs[strs.length - 1]);
 
-                page++;
+        if (!item.hasItemMeta()) return;
+        if (!item.getItemMeta().hasDisplayName()) return;
 
-                p.closeInventory();
+        switch (item.getType()) {
+            case NETHER_STAR:
+                if (item.getItemMeta().getDisplayName().equalsIgnoreCase(Chat.format("&eNext Page"))) {
+                    String name = ChatColor.stripColor(p.getOpenInventory().getTitle());
+                    String[] strs = name.split(" ");
+                    int page = Integer.parseInt(strs[strs.length - 1]);
 
-                p.openInventory(new PunishGUI(op, page).getInventory());
-            } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase(Chat.format("&ePrevious Page"))) {
-                String name = ChatColor.stripColor(inv.getName());
-                String[] strs = name.split(" ");
-                int page = Integer.parseInt(strs[strs.length - 1]);
+                    page++;
 
-                page--;
+                    p.closeInventory();
 
-                p.closeInventory();
+                    p.openInventory(new PunishGUI(op, page).getInventory());
+                } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase(Chat.format("&ePrevious Page"))) {
+                    String name = ChatColor.stripColor(p.getOpenInventory().getTitle());
+                    String[] strs = name.split(" ");
+                    int page = Integer.parseInt(strs[strs.length - 1]);
 
-                p.openInventory(new PunishGUI(op, page).getInventory());
-            }
+                    page--;
+
+                    p.closeInventory();
+
+                    p.openInventory(new PunishGUI(op, page).getInventory());
+                }
+                break;
+            case LIME_STAINED_GLASS_PANE:
+                punishment = ChatColor.stripColor(inv.getItem(slot - 9).getItemMeta().getLore().toArray()[0].toString().split(" ")[1]);
+                Chat.broadcast(punishment);
+                if (config.contains(punishment + ".Tier 1.Player Commands")) {
+                    for (String s : config.getStringList(punishment + ".Tier 1.Player Commands")) {
+                        Bukkit.dispatchCommand(p, s.replace("%player%", op.getName()));
+                    }
+                }
+                if (config.contains(punishment + ".Tier 1.Console Commands")) {
+                    for (String s : config.getStringList(punishment + ".Tier 1.Console Commands")) {
+                        if (!s.equalsIgnoreCase("none")) {
+                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), s.replace("%player%", op.getName()));
+                        }
+                    }
+                }
+                break;
+            case YELLOW_STAINED_GLASS_PANE:
+                punishment = ChatColor.stripColor(inv.getItem(slot - 18).getItemMeta().getDisplayName());
+                if (config.contains(punishment + ".Tier 2.Player Commands")) {
+                    for (String s : config.getStringList(punishment + ".Tier 2.Player Commands")) {
+                        Bukkit.dispatchCommand(p, s.replace("%player%", op.getName()));
+                    }
+                }
+                if (config.contains(punishment + ".Tier 2.Console Commands")) {
+                    for (String s : config.getStringList(punishment + ".Tier 2.Console Commands")) {
+                        if (!s.equalsIgnoreCase("none")) {
+                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), s.replace("%player%", op.getName()));
+                        }
+                    }
+                }
+                break;
+            case ORANGE_STAINED_GLASS_PANE:
+                punishment = ChatColor.stripColor(inv.getItem(slot - 27).getItemMeta().getDisplayName());
+                if (config.contains(punishment + ".Tier 3.Player Commands")) {
+                    for (String s : config.getStringList(punishment + ".Tier 3.Player Commands")) {
+                        Bukkit.dispatchCommand(p, s.replace("%player%", op.getName()));
+                    }
+                }
+                if (config.contains(punishment + ".Tier 3.Console Commands")) {
+                    for (String s : config.getStringList(punishment + ".Tier 3.Console Commands")) {
+                        if (!s.equalsIgnoreCase("none")) {
+                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), s.replace("%player%", op.getName()));
+                        }
+                    }
+                }
+                break;
+            case RED_STAINED_GLASS_PANE:
+                punishment = ChatColor.stripColor(inv.getItem(slot - 36).getItemMeta().getDisplayName());
+                if (config.contains(punishment + ".Tier 4.Player Commands")) {
+                    for (String s : config.getStringList(punishment + ".Tier 4.Player Commands")) {
+                        Bukkit.dispatchCommand(p, s.replace("%player%", op.getName()));
+                    }
+                }
+                if (config.contains(punishment + ".Tier 4.Console Commands")) {
+                    for (String s : config.getStringList(punishment + ".Tier 4.Console Commands")) {
+                        if (!s.equalsIgnoreCase("none")) {
+                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), s.replace("%player%", op.getName()));
+                        }
+                    }
+                }
+                break;
         }
-
-        if (item.getType() == Material.STAINED_GLASS_PANE) {
-            int id = item.getData().getData();
-            String punishment;
-            switch (id) {
-                case 5:
-                    punishment = ChatColor.stripColor(inv.getItem(slot - 9).getItemMeta().getLore().toArray()[0].toString().split(" ")[1]);
-                    Chat.broadcast(punishment);
-                    if (config.contains(punishment + ".Tier 1.Player Commands")) {
-                        for (String s : config.getStringList(punishment + ".Tier 1.Player Commands")) {
-                            Bukkit.dispatchCommand(p, s.replace("%player%", op.getName()));
-                        }
-                    }
-                    if (config.contains(punishment + ".Tier 1.Console Commands")) {
-                        for (String s : config.getStringList(punishment + ".Tier 1.Console Commands")) {
-                            if (!s.equalsIgnoreCase("none")) {
-                                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), s.replace("%player%", op.getName()));
-                            }
-                        }
-                    }
-                    break;
-                case 4:
-                    punishment = ChatColor.stripColor(inv.getItem(slot - 18).getItemMeta().getDisplayName());
-                    if (config.contains(punishment + ".Tier 2.Player Commands")) {
-                        for (String s : config.getStringList(punishment + ".Tier 2.Player Commands")) {
-                            Bukkit.dispatchCommand(p, s.replace("%player%", op.getName()));
-                        }
-                    }
-                    if (config.contains(punishment + ".Tier 2.Console Commands")) {
-                        for (String s : config.getStringList(punishment + ".Tier 2.Console Commands")) {
-                            if (!s.equalsIgnoreCase("none")) {
-                                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), s.replace("%player%", op.getName()));
-                            }
-                        }
-                    }
-                    break;
-                case 1:
-                    punishment = ChatColor.stripColor(inv.getItem(slot - 27).getItemMeta().getDisplayName());
-                    if (config.contains(punishment + ".Tier 3.Player Commands")) {
-                        for (String s : config.getStringList(punishment + ".Tier 3.Player Commands")) {
-                            Bukkit.dispatchCommand(p, s.replace("%player%", op.getName()));
-                        }
-                    }
-                    if (config.contains(punishment + ".Tier 3.Console Commands")) {
-                        for (String s : config.getStringList(punishment + ".Tier 3.Console Commands")) {
-                            if (!s.equalsIgnoreCase("none")) {
-                                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), s.replace("%player%", op.getName()));
-                            }
-                        }
-                    }
-                    break;
-                case 14:
-                    punishment = ChatColor.stripColor(inv.getItem(slot - 36).getItemMeta().getDisplayName());
-                    if (config.contains(punishment + ".Tier 4.Player Commands")) {
-                        for (String s : config.getStringList(punishment + ".Tier 4.Player Commands")) {
-                            Bukkit.dispatchCommand(p, s.replace("%player%", op.getName()));
-                        }
-                    }
-                    if (config.contains(punishment + ".Tier 4.Console Commands")) {
-                        for (String s : config.getStringList(punishment + ".Tier 4.Console Commands")) {
-                            if (!s.equalsIgnoreCase("none")) {
-                                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), s.replace("%player%", op.getName()));
-                            }
-                        }
-                    }
-                    break;
-            }
-            p.closeInventory();
-        }
-        
     }
 
     @Override
@@ -168,7 +166,7 @@ public class PunishGUI implements PunishmentGUI {
             inv.setItem(53, next);
         }
 
-        ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+        ItemStack skull = new ItemStack(Material.LEGACY_SKULL_ITEM, 1, (short) 3);
         SkullMeta smeta = (SkullMeta) skull.getItemMeta();
 
         smeta.setOwner(punish.getName());

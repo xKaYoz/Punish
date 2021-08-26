@@ -34,18 +34,19 @@ public class StaffHistoryMenuGUI implements PunishmentGUI {
 
         OfflinePlayer op = Bukkit.getOfflinePlayer(ChatColor.stripColor(inv.getItem(4).getItemMeta().getDisplayName()));
 
-        if (item.getType() == Material.WOOL) {
-
-            if (item.getItemMeta().getDisplayName().equalsIgnoreCase(Chat.format("&cWarnings"))) {
+        switch (item.getType()) {
+            case RED_WOOL:
                 p.openInventory(new StaffHistoryGUI(op.getUniqueId(), PunishmentType.WARN, 1, 1).getInventory());
-            } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase(Chat.format("&cBans"))) {
-                p.openInventory(new StaffHistoryGUI(op.getUniqueId(), PunishmentType.BAN,1,1).getInventory());
-            } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase(Chat.format("&cMutes"))) {
-                p.openInventory(new StaffHistoryGUI(op.getUniqueId(), PunishmentType.MUTE,1,1).getInventory());
-            } else if (item.getItemMeta().getDisplayName().equalsIgnoreCase(Chat.format("&cKicks"))) {
-                p.openInventory(new StaffHistoryGUI(op.getUniqueId(), PunishmentType.KICK,1,1).getInventory());
-            }
-
+                break;
+            case BLACK_WOOL:
+                p.openInventory(new StaffHistoryGUI(op.getUniqueId(), PunishmentType.BAN, 1, 1).getInventory());
+                break;
+            case LIGHT_GRAY_WOOL:
+                p.openInventory(new StaffHistoryGUI(op.getUniqueId(), PunishmentType.MUTE, 1, 1).getInventory());
+                break;
+            case YELLOW_WOOL:
+                p.openInventory(new StaffHistoryGUI(op.getUniqueId(), PunishmentType.KICK, 1, 1).getInventory());
+                break;
         }
     }
 
@@ -55,7 +56,7 @@ public class StaffHistoryMenuGUI implements PunishmentGUI {
         String name = op.getName();
         Inventory inv = Bukkit.createInventory(this, 36, Chat.format("&c&l" + name + "'s Staff History"));
 
-        ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+        ItemStack skull = new ItemStack(Material.LEGACY_SKULL_ITEM, 1, (short) 3);
         SkullMeta smeta = (SkullMeta) skull.getItemMeta();
 
         smeta.setOwner(op.getName());
@@ -64,10 +65,10 @@ public class StaffHistoryMenuGUI implements PunishmentGUI {
 
         inv.setItem(4, skull);
 
-        inv.setItem(19, ItemBuilder.build(Material.WOOL, 1, 14, "&cWarnings", Arrays.asList("&7See all warnings issued by " + name, "&7Total: &e" + PunishmentHandler.getNumStaffWarn(staff.toString()))));
-        inv.setItem(21, ItemBuilder.build(Material.WOOL, 1, 15, "&cBans", Arrays.asList("&7See all bans issued by " + name, "&7Total: &e" + PunishmentHandler.getNumStaffBan(staff.toString()))));
-        inv.setItem(23, ItemBuilder.build(Material.WOOL, 1, 8, "&cMutes", Arrays.asList("&7See all mutes issued by " + name, "&7Total: &e" + PunishmentHandler.getNumStaffMute(staff.toString()))));
-        inv.setItem(25, ItemBuilder.build(Material.WOOL, 1, 4, "&cKicks", Arrays.asList("&7See all kicks issued by " + name, "&7Total: &e" + PunishmentHandler.getNumStaffKick(staff.toString()))));
+        inv.setItem(19, ItemBuilder.build(Material.RED_WOOL, 1, "&cWarnings", Arrays.asList("&7See all warnings issued by " + name, "&7Total: &e" + PunishmentHandler.getNumStaffWarn(staff.toString()))));
+        inv.setItem(21, ItemBuilder.build(Material.BLACK_WOOL, 1, "&cBans", Arrays.asList("&7See all bans issued by " + name, "&7Total: &e" + PunishmentHandler.getNumStaffBan(staff.toString()))));
+        inv.setItem(23, ItemBuilder.build(Material.LIGHT_GRAY_WOOL, 1, "&cMutes", Arrays.asList("&7See all mutes issued by " + name, "&7Total: &e" + PunishmentHandler.getNumStaffMute(staff.toString()))));
+        inv.setItem(25, ItemBuilder.build(Material.YELLOW_WOOL, 1, "&cKicks", Arrays.asList("&7See all kicks issued by " + name, "&7Total: &e" + PunishmentHandler.getNumStaffKick(staff.toString()))));
 
 
         return inv;

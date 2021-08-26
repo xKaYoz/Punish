@@ -27,7 +27,7 @@ public class PunishGUIEvent implements Listener {
 
         if(inv.getHolder() instanceof PunishmentGUI) {
             e.setCancelled(true);
-            if (ChatColor.stripColor(inv.getName()).contains("Punish ")
+            if (ChatColor.stripColor(e.getView().getTitle()).contains("Punish ")
                     && item != null
                     && item.hasItemMeta())
                 new PunishGUI().onGUIClick(p, e.getSlot(), item, e.getClick(), inv);

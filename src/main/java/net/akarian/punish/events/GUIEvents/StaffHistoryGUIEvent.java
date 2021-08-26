@@ -19,12 +19,12 @@ public class StaffHistoryGUIEvent implements Listener {
         ItemStack item = e.getCurrentItem();
 
 
-        if((inv.getHolder() instanceof PunishmentGUI) && (ChatColor.stripColor(inv.getName()).contains("Ban History")
-                || ChatColor.stripColor(inv.getName()).contains("Kick History")
-                || ChatColor.stripColor(inv.getName()).contains("Warn History")
-                || ChatColor.stripColor(inv.getName()).contains("Mute History"))
+        if ((inv.getHolder() instanceof PunishmentGUI) && (ChatColor.stripColor(e.getView().getTitle()).contains("Ban History")
+                || ChatColor.stripColor(e.getView().getTitle()).contains("Kick History")
+                || ChatColor.stripColor(e.getView().getTitle()).contains("Warn History")
+                || ChatColor.stripColor(e.getView().getTitle()).contains("Mute History"))
                 && item != null
-                && item.hasItemMeta()){
+                && item.hasItemMeta()) {
 
             e.setCancelled(true);
             new StaffHistoryGUI().onGUIClick(p, e.getSlot(), item, e.getClick(), inv);
