@@ -19,10 +19,10 @@ public class HistoryGUIEvent implements Listener {
         ItemStack item = e.getCurrentItem();
 
 
-        if ((inv.getHolder() instanceof PunishmentGUI) && (ChatColor.stripColor(e.getView().getTitle()).contains("Bans")
-                || ChatColor.stripColor(e.getView().getTitle()).contains("Kicks")
-                || ChatColor.stripColor(e.getView().getTitle()).contains("Warns")
-                || ChatColor.stripColor(e.getView().getTitle()).contains("Mutes"))
+        if ((inv.getHolder() instanceof PunishmentGUI) && (ChatColor.stripColor(e.getView().title().toString()).contains("Bans")
+                || ChatColor.stripColor(e.getView().title().toString()).contains("Kicks")
+                || ChatColor.stripColor(e.getView().title().toString()).contains("Warns")
+                || ChatColor.stripColor(e.getView().title().toString()).contains("Mutes"))
                 && item != null
                 && item.hasItemMeta()) {
 

@@ -93,7 +93,7 @@ public final class Punish extends JavaPlugin {
     }
 
     public void saveGuiConfig() {
-        saveResource("guiconfig.yml", false);
+            saveResource("guiconfig.yml", false);
     }
 
     public void saveLang() {

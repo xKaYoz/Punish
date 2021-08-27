@@ -1,7 +1,7 @@
 name: Punish
-version: 0.0.3
+version: 0.0.4
 main: net.akarian.punish.Punish
-api-version: 1.13
+api-version: 1.17
 prefix: Akarian
 authors: [Austin]
 description: Akarian Punishment Plugin

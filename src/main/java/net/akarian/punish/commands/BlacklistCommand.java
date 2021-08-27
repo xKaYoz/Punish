@@ -38,12 +38,13 @@ public class BlacklistCommand implements CommandExecutor {
 
                     switch (PunishmentHandler.blacklist(args[0], staff, reason.toString(), isSilent)) {
                         case (0):
+                            String trim = reason.toString().replace("-s", "").trim();
                             if (!isSilent) {
-                                Chat.broadcast(lang.getString("Blacklist Message").replace("$ip$", args[0]).replace("$reason$", reason.toString().replace("-s", "").trim()).replace("$staff$", sender.getName()));
+                                Chat.broadcast(lang.getString("Blacklist Message").replace("$ip$", args[0]).replace("$reason$", trim).replace("$staff$", sender.getName()));
                             } else {
                                 for (Player p : Bukkit.getOnlinePlayers()) {
                                     if (p.hasPermission("punish.silent")) {
-                                        Chat.sendRawMessage(p, lang.getString("Silent Blacklist Message").replace("$ip$", args[0]).replace("$reason$", reason.toString().replace("-s", "").trim()).replace("$staff$", sender.getName()));
+                                        Chat.sendRawMessage(p, lang.getString("Silent Blacklist Message").replace("$ip$", args[0]).replace("$reason$", trim).replace("$staff$", sender.getName()));
                                     }
                                 }
                             }

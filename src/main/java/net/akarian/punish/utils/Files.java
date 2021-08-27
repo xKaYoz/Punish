@@ -68,11 +68,6 @@ public class Files {
 
     public File getFile(String name) {
         this.file = new File(Punish.getInstance().getDataFolder(), name + ".yml");
-
-        if (!this.file.exists()) {
-            return null;
-        }
-
         return this.file;
     }
 

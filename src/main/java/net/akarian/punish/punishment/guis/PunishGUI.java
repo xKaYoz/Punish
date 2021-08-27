@@ -15,7 +15,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.Collections;
 import java.util.List;
@@ -166,13 +165,6 @@ public class PunishGUI implements PunishmentGUI {
             inv.setItem(53, next);
         }
 
-        ItemStack skull = new ItemStack(Material.LEGACY_SKULL_ITEM, 1, (short) 3);
-        SkullMeta smeta = (SkullMeta) skull.getItemMeta();
-
-        smeta.setOwner(punish.getName());
-        smeta.setDisplayName(Chat.format("&e" + punish.getName()));
-        skull.setItemMeta(smeta);
-
         for (int i = start; i < end; i++) {
             if (punishments.size() == i) break;
             int place = row;
@@ -196,7 +188,7 @@ public class PunishGUI implements PunishmentGUI {
 
         }
 
-        inv.setItem(4, skull);
+        inv.setItem(4, ItemBuilder.getPlayerHead(punish.getUniqueId()));
 
         return inv;
     }

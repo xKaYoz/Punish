@@ -1,10 +1,7 @@
 package net.akarian.punish.punishment.guis;
 
 import net.akarian.punish.punishment.PunishmentHandler;
-import net.akarian.punish.utils.Chat;
-import net.akarian.punish.utils.ItemBuilder;
-import net.akarian.punish.utils.PunishmentGUI;
-import net.akarian.punish.utils.PunishmentType;
+import net.akarian.punish.utils.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -13,7 +10,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.Arrays;
 import java.util.UUID;
@@ -53,17 +49,10 @@ public class StaffHistoryMenuGUI implements PunishmentGUI {
     @Override
     public Inventory getInventory() {
         OfflinePlayer op = Bukkit.getOfflinePlayer(staff);
-        String name = op.getName();
+        String name = NameManager.getName(op.getUniqueId());
         Inventory inv = Bukkit.createInventory(this, 36, Chat.format("&c&l" + name + "'s Staff History"));
 
-        ItemStack skull = new ItemStack(Material.LEGACY_SKULL_ITEM, 1, (short) 3);
-        SkullMeta smeta = (SkullMeta) skull.getItemMeta();
-
-        smeta.setOwner(op.getName());
-        smeta.setDisplayName(Chat.format("&e" + op.getName()));
-        skull.setItemMeta(smeta);
-
-        inv.setItem(4, skull);
+        inv.setItem(4, ItemBuilder.getPlayerHead(op.getUniqueId()));
 
         inv.setItem(19, ItemBuilder.build(Material.RED_WOOL, 1, "&cWarnings", Arrays.asList("&7See all warnings issued by " + name, "&7Total: &e" + PunishmentHandler.getNumStaffWarn(staff.toString()))));
         inv.setItem(21, ItemBuilder.build(Material.BLACK_WOOL, 1, "&cBans", Arrays.asList("&7See all bans issued by " + name, "&7Total: &e" + PunishmentHandler.getNumStaffBan(staff.toString()))));

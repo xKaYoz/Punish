@@ -12,7 +12,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.Arrays;
 
@@ -63,14 +62,7 @@ public class HistoryMenuGUI implements PunishmentGUI {
 
         Inventory inv = Bukkit.createInventory(this, 36, Chat.format("&c&l" + name + "'s Punishments"));
 
-        ItemStack skull = new ItemStack(Material.LEGACY_SKULL_ITEM, 1, (short) 3);
-        SkullMeta smeta = (SkullMeta) skull.getItemMeta();
-
-        smeta.setOwner(op.getName());
-        smeta.setDisplayName(Chat.format("&e" + op.getName()));
-        skull.setItemMeta(smeta);
-
-        inv.setItem(4, skull);
+        inv.setItem(4, ItemBuilder.getPlayerHead(op.getUniqueId()));
 
         inv.setItem(19, ItemBuilder.build(Material.RED_WOOL, 1, "&cWarnings", Arrays.asList("&7See all warnings for " + name, "&7Total: &e" + PunishmentHandler.getNumWarn(uuid))));
         inv.setItem(21, ItemBuilder.build(Material.BLACK_WOOL, 1, "&cBans", Arrays.asList("&7See all bans for " + name, "&7Total: &e" + PunishmentHandler.getNumBan(uuid))));
