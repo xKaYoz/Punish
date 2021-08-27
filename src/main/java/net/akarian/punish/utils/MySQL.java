@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 
 import java.sql.*;
 import java.util.UUID;
+import java.util.logging.Level;
 
 public class MySQL {
 
@@ -45,11 +46,14 @@ public class MySQL {
 
         try {
 
-            Class.forName("com.mysql.jdbc.Driver");
+            if (Bukkit.getServer().getVersion().contains("1.16"))
+                Class.forName("com.mysql.cj.jdbc.Driver");
+            else
+                Class.forName("com.mysql.jdbc.Driver");
             Chat.sendRawMessage(sender, "&aConnecting to the MySQL database...");
             setConnection(DriverManager.getConnection("jdbc:mysql://" + this.host + ":" + this.port + "/" + this.database, this.username, this.password));
             Chat.sendRawMessage(sender, "");
-            Chat.sendRawMessage(sender, "&sPunish has successfully established a connection to the MySQL database.");
+            Chat.sendRawMessage(sender, "&aPunish has successfully established a connection to the MySQL database.");
 
             Statement s = connection.createStatement();
 
@@ -75,7 +79,7 @@ public class MySQL {
 
         } catch (Exception e) {
             e.printStackTrace();
-            Chat.sendRawMessage(sender, "&c&lAn error has occurred while connecting to the database. Please see stacktrace above.");
+            Punish.getInstance().getLogger().log(Level.SEVERE, Chat.format("&c&lAn error has occurred while connecting to the database. Please see stacktrace above."));
             Chat.sendRawMessage(sender, "");
             Chat.sendRawMessage(sender, "&8&m&l---------------------------------------------");
             Chat.log("&c&lAkarian Punish has encountered an error connecting to the MySQL database. Please check console. E" + e.getCause().getLocalizedMessage(), true);

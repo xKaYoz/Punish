@@ -7,11 +7,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Punish" />
+        <module name="Punish [1.13.x - 1.16.x]" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Punish" target="1.8" />
+      <module name="Punish [1.13.x - 1.16.x]" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

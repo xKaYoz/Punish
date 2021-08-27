@@ -1,10 +1,7 @@
 package net.akarian.punish.events;
 
 import net.akarian.punish.punishment.PunishmentHandler;
-import net.akarian.punish.utils.Chat;
-import net.akarian.punish.utils.Files;
-import net.akarian.punish.utils.Punishment;
-import net.akarian.punish.utils.PunishmentType;
+import net.akarian.punish.utils.*;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
@@ -60,7 +57,7 @@ public class BanCheckEvent implements Listener {
             if (ban.getStaff().equalsIgnoreCase("Console")) {
                 staffName = "CONSOLE";
             } else {
-                staffName = Bukkit.getOfflinePlayer(UUID.fromString(ban.getStaff())).getName();
+                staffName = NameManager.getName(ban.getStaff());
             }
             if (ban.getEnd() == -1) {
                 length = "Permanent";
