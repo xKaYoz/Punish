@@ -1,5 +1,5 @@
 name: Punish
-version: 0.0.2
+version: 0.0.4
 main: net.akarian.punish.Punish
 api-version: 1.13
 prefix: Akarian

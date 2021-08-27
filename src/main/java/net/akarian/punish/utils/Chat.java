@@ -1,5 +1,6 @@
 package net.akarian.punish.utils;
 
+import net.akarian.punish.Punish;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -10,11 +11,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 public class Chat {
 
-    private static Files files = new Files();
-    private static FileConfiguration lang = files.getConfig("lang");
+    private static final Files files = new Files();
+    private static final FileConfiguration lang = files.getConfig("lang");
 
     private final static String prefix = lang.getString("Prefix");
 
@@ -24,7 +26,7 @@ public class Chat {
 
     public static void sendRawMessage(CommandSender p, String str) {
         if (!(p instanceof Player))
-            System.out.println(format(str));
+            Punish.getInstance().getLogger().log(Level.INFO, format(str));
         else
             p.sendMessage(format(str));
     }

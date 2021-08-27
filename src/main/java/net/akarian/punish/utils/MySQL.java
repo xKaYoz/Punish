@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 
 import java.sql.*;
 import java.util.UUID;
+import java.util.logging.Level;
 
 public class MySQL {
 
@@ -49,7 +50,7 @@ public class MySQL {
             Chat.sendRawMessage(sender, "&aConnecting to the MySQL database...");
             setConnection(DriverManager.getConnection("jdbc:mysql://" + this.host + ":" + this.port + "/" + this.database, this.username, this.password));
             Chat.sendRawMessage(sender, "");
-            Chat.sendRawMessage(sender, "&sPunish has successfully established a connection to the MySQL database.");
+            Chat.sendRawMessage(sender, "&aPunish has successfully established a connection to the MySQL database.");
 
             Statement s = connection.createStatement();
 
@@ -75,7 +76,7 @@ public class MySQL {
 
         } catch (Exception e) {
             e.printStackTrace();
-            Chat.sendRawMessage(sender, "&c&lAn error has occurred while connecting to the database. Please see stacktrace above.");
+            Punish.getInstance().getLogger().log(Level.SEVERE, Chat.format("&c&lAn error has occurred while connecting to the database. Please see stacktrace above."));
             Chat.sendRawMessage(sender, "");
             Chat.sendRawMessage(sender, "&8&m&l---------------------------------------------");
             Chat.log("&c&lAkarian Punish has encountered an error connecting to the MySQL database. Please check console. E" + e.getCause().getLocalizedMessage(), true);
@@ -125,19 +126,19 @@ public class MySQL {
                             if (!banSet.getBoolean(8)) {
                                 Chat.broadcast(lang.getString("Ban Message").replace("$player$", Bukkit.getPlayer(uuid).getName())
                                         .replace("$reason$", banSet.getString(6))
-                                        .replace("$staff$", banSet.getString(3)));
+                                        .replace("$staff$", NameManager.getName(banSet.getString(3))));
                             } else {
                                 for (Player p : Bukkit.getOnlinePlayers()) {
                                     if (p.hasPermission("punish.silent")) {
                                         Chat.broadcast(lang.getString("Ban Message").replace("$player$", Bukkit.getPlayer(uuid).getName())
                                                 .replace("$reason$", banSet.getString(6))
-                                                .replace("$staff$", banSet.getString(3)));
+                                                .replace("$staff$", NameManager.getName(banSet.getString(3))));
                                     }
                                 }
                             }
                             //Kick Player
                             Bukkit.getPlayer(uuid).kickPlayer(Chat.format(lang.getString("Disconnect Ban Message").replace("$reason$", banSet.getString(6))
-                                    .replace("$staff$", banSet.getString(3))
+                                    .replace("$staff$", NameManager.getName(banSet.getString(3)))
                                     .replace("$start$", Chat.formatTime(banSet.getLong(4)))
                                     .replace("$end$", Chat.formatTime(-1))
                                     .replace("$id$", banSet.getString(1))));
@@ -146,19 +147,19 @@ public class MySQL {
                             if (!banSet.getBoolean(8)) {
                                 Chat.broadcast(lang.getString("TempBan Message").replace("$player$", Bukkit.getPlayer(uuid).getName())
                                         .replace("$reason$", banSet.getString(6))
-                                        .replace("$staff$", banSet.getString(3)));
+                                        .replace("$staff$", NameManager.getName(banSet.getString(3))));
                             } else {
                                 for (Player p : Bukkit.getOnlinePlayers()) {
                                     if (p.hasPermission("punish.silent")) {
                                         Chat.broadcast(lang.getString("TempBan Message").replace("$player$", Bukkit.getPlayer(uuid).getName())
                                                 .replace("$reason$", banSet.getString(6))
-                                                .replace("$staff$", banSet.getString(3)));
+                                                .replace("$staff$", NameManager.getName(banSet.getString(3))));
                                     }
                                 }
                             }
                             //Kick player
                             Bukkit.getPlayer(uuid).kickPlayer(Chat.format(lang.getString("Disconnect TempBan Message").replace("$reason$", banSet.getString(6))
-                                    .replace("$staff$", banSet.getString(3))
+                                    .replace("$staff$", NameManager.getName(banSet.getString(3)))
                                     .replace("$start$", Chat.formatTime(banSet.getLong(4)))
                                     .replace("$end$", Chat.formatTime(-1))
                                     .replace("$id$", banSet.getString(1))));
@@ -175,20 +176,20 @@ public class MySQL {
                         if (!kickSet.getBoolean(6)) {
                             Chat.broadcast("&r" + lang.getString("Kick Message").replace("$player$", Bukkit.getPlayer(uuid).getName())
                                     .replace("$reason$", kickSet.getString(5))
-                                    .replace("$staff$", kickSet.getString(3)));
+                                    .replace("$staff$", NameManager.getName(kickSet.getString(3))));
                         } else {
                             for (Player p : Bukkit.getOnlinePlayers()) {
                                 if (p.hasPermission("punish.silent")) {
                                     Chat.broadcast("&r" + lang.getString("Kick Message").replace("$player$", Bukkit.getPlayer(uuid).getName())
                                             .replace("$reason$", kickSet.getString(5))
-                                            .replace("$staff$", kickSet.getString(3)));
+                                            .replace("$staff$", NameManager.getName(kickSet.getString(3))));
                                 }
                             }
                         }
                         //Kick player
                         Bukkit.getPlayer(uuid).kickPlayer(Chat.format(lang.getString("Player Kick Message").replace("$reason$", kickSet.getString(5))
                                 .replace("$id$", kickSet.getString(1))
-                                .replace("$staff$", kickSet.getString(3))));
+                                .replace("$staff$", NameManager.getName(kickSet.getString(3)))));
                     }
                 }
             }
